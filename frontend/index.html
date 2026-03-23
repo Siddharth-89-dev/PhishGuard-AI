@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PhishGuard AI | Real-Time Phishing Detection</title>
+    <link rel="stylesheet" href="/static/style.css">
+
+</head>
+<body>
+
+    <!-- Spline Background -->
+    <div class="spline-bg">
+       <script type="module" src="https://unpkg.com/@splinetool/viewer@1.12.39/build/spline-viewer.js"></script>
+<spline-viewer url="https://prod.spline.design/fy0nTATP6XdeBnGC/scene.splinecode"></spline-viewer>
+    </div>
+
+    <!-- UI Layer -->
+    <div class="ui">
+        
+
+        <!-- Header -->
+        <header class="header">
+            <h1 class="logo">PhishGuard AI</h1>
+            <nav class="nav">
+                <a href="index.html">Home</a>
+                <a href="/product.html">Product</a>
+                <a href="/docs">Docs</a>
+                <a href="/contact">Contact</a>
+
+</nav>
+
+
+            
+
+            <button class="btn-sign">Login</button>
+        </header>
+     
+
+
+        <!-- Hero Section -->
+        <main class="hero">
+
+            <span class="tag">INTRODUCING — AI SECURITY</span>
+
+            <h1 class="title">
+                Real-Time <br>
+                Phishing Detection
+            </h1>
+
+            <p class="subtitle">
+                Detect phishing websites instantly using AI — even zero-day attacks.
+            </p>
+
+            <!-- Scan Box -->
+            <div class="scan-box">
+                <input
+                    type="text"
+                    id="urlInput"
+                    placeholder="Enter website URL to scan..."
+                    autocomplete="off"
+                >
+                <button onclick="scanURL()">Scan Website →</button>
+            </div>
+
+            <!-- Result -->
+            <div id="result" class="result"></div>
+
+        </main>
+
+    </div>
+    <!-- PRODUCT SECTION -->
+<section id="product" class="section">
+    <h2>Product</h2>
+    <p>
+        PhishGuard AI is a real-time phishing detection platform that analyzes
+        website URLs using machine learning to identify malicious and
+        zero-day phishing threats before users interact with them.
+    </p>
+</section>
+
+<!-- FEATURES SECTION -->
+<section id="features" class="section">
+    <h2>Features</h2>
+    <ul>
+        <li>⚡ Real-time phishing detection</li>
+        <li>🧠 AI-based URL & domain analysis</li>
+        <li>📊 Risk scoring instead of simple blocking</li>
+        <li>🛡️ Zero-day phishing protection</li>
+        <li>🌐 Web app & browser-extension ready</li>
+    </ul>
+</section>
+
+<!-- DOCS SECTION -->
+<section id="docs" class="section">
+    <h2>Documentation</h2>
+    <p>
+        The system exposes a FastAPI-based REST API that accepts URLs and
+        returns phishing predictions with a confidence score.
+    </p>
+
+    <pre class="code-block">
+POST /predict
+{
+  "url": "https://example.com"
+}
+    </pre>
+</section>
+
+<!-- CONTACT SECTION -->
+<section id="contact" class="section">
+    <h2>Contact</h2>
+    <p>Have questions or want to collaborate?</p>
+
+    <div class="contact-box">
+        <input type="email" placeholder="iamsiddharthsharma48@gmail.com">
+        <textarea placeholder="Your message"></textarea>
+        <button>Send Message</button>
+    </div>
+</section>
+
+
+    <!-- Script -->
+    <script>
+        async function scanURL() {
+            const url = document.getElementById("urlInput").value;
+            const result = document.getElementById("result");
+
+            if (!url) {
+                result.innerHTML = "⚠️ Please enter a URL";
+                return;
+            }
+
+            result.innerHTML = "🔍 Scanning website...";
+
+            try {
+                const res = await fetch("http://127.0.0.1:8000/predict", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ url })
+                });
+
+                const data = await res.json();
+
+                result.innerHTML = `
+                    <strong>Status:</strong> ${data.prediction}<br>
+                    <strong>Risk Score:</strong> ${data.risk_score}
+                `;
+            } catch {
+                result.innerHTML = "❌ Backend not reachable";
+            }
+        }
+        
+const sections = document.querySelectorAll("section");
+const navLinks = document.querySelectorAll(".nav a");
+
+window.addEventListener("scroll", () => {
+    let current = "";
+
+    sections.forEach(section => {
+        const sectionTop = section.offsetTop - 200;
+        if (scrollY >= sectionTop) {
+            current = section.getAttribute("id");
+        }
+    });
+
+    navLinks.forEach(link => {
+        link.classList.remove("active");
+        if (link.getAttribute("href") === `#${current}`) {
+            link.classList.add("active");
+        }
+    });
+});
+
+
+    </script>
+
+</body>
+</html>
