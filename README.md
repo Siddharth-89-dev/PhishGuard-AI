@@ -82,6 +82,19 @@ PhishGuard-AI/
 └── README.md
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
 ---
 
 ## ⚙️ Installation
