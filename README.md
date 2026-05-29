@@ -64,22 +64,25 @@ Phishing / Legitimate Result
 ---
 
 ## 📂 Project Structure
+
+```text
 PhishGuard-AI/
 │
 ├── backend/
-│ ├── app.py
-│ ├── train_model.py
-│ ├── feature_extractor.py
-│ ├── phishing_dataset.csv
-│ └── model/
+│   ├── app.py
+│   ├── train_model.py
+│   ├── feature_extractor.py
+│   ├── phishing_dataset.csv
+│   └── model/
 │
 ├── frontend/
-│ ├── index.html
-│ ├── style.css
-│ └── script.js
+│   ├── index.html
+│   ├── style.css
+│   └── script.js
 │
 ├── requirements.txt
 └── README.md
+```
 
 
 
