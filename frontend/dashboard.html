@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script>
+        // Prevent flash of unauthenticated content
+        (function() {
+            if (localStorage.getItem('phishguard_auth') !== 'true') {
+                window.location.replace('login.html');
+            }
+        })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - PhishGuard</title>
+    <meta name="description" content="PhishGuard security dashboard. Monitor threats, scan history, and account information.">
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <a href="/static/index.html" class="nav-brand">
+            <div class="shield-icon">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/>
+                </svg>
+            </div>
+            PhishGuard
+        </a>
+        <ul class="nav-links">
+            <li><a href="/static/index.html">Home</a></li>
+            <li><a href="/static/index.html#features">Features</a></li>
+            <li><a href="/static/index.html#how-it-works">About</a></li>
+            <li><a href="/static/index.html#contact">Contact</a></li>
+            <li><a href="/static/dashboard.html" class="nav-login-btn">Dashboard</a></li>
+        </ul>
+        <button class="mobile-menu-btn">&#9776;</button>
+    </nav>
+
+    <!-- Dashboard -->
+    <div class="dashboard-page">
+        <div class="dashboard-container">
+            <!-- Header -->
+            <div class="dashboard-header">
+                <h1>Welcome back, <span id="user-name">User</span></h1>
+                <button id="logout-btn" class="logout-btn">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+                        <polyline points="16 17 21 12 16 7"/>
+                        <line x1="21" y1="12" x2="9" y2="12"/>
+                    </svg>
+                    Logout
+                </button>
+            </div>
+
+            <!-- Stats Grid -->
+            <div class="dashboard-grid">
+                <!-- Total Scans -->
+                <div class="dashboard-card">
+                    <div class="dashboard-card-header">
+                        <h3>Total Scans</h3>
+                        <div class="dashboard-card-icon blue">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
+                                <path d="M3 3v5h5"/>
+                                <path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"/>
+                                <path d="M16 21h5v-5"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div id="total-scans" class="dashboard-card-value">0</div>
+                    <div class="dashboard-card-label">Total threats analyzed</div>
+                </div>
+
+                <!-- Safe Scans -->
+                <div class="dashboard-card">
+                    <div class="dashboard-card-header">
+                        <h3>Safe</h3>
+                        <div class="dashboard-card-icon green">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                <polyline points="22 4 12 14.01 9 11.01"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div id="safe-scans" class="dashboard-card-value" style="color: var(--success);">0</div>
+                    <div class="dashboard-card-label">Clean results</div>
+                </div>
+
+                <!-- Suspicious Scans -->
+                <div class="dashboard-card">
+                    <div class="dashboard-card-header">
+                        <h3>Suspicious</h3>
+                        <div class="dashboard-card-icon orange">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                                <line x1="12" y1="9" x2="12" y2="13"/>
+                                <line x1="12" y1="17" x2="12.01" y2="17"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div id="suspicious-scans" class="dashboard-card-value" style="color: var(--warning);">0</div>
+                    <div class="dashboard-card-label">Requires attention</div>
+                </div>
+
+                <!-- Dangerous Scans -->
+                <div class="dashboard-card">
+                    <div class="dashboard-card-header">
+                        <h3>Dangerous</h3>
+                        <div class="dashboard-card-icon red">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polygon points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"/>
+                                <line x1="12" y1="8" x2="12" y2="12"/>
+                                <line x1="12" y1="16" x2="12.01" y2="16"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div id="dangerous-scans" class="dashboard-card-value" style="color: var(--danger);">0</div>
+                    <div class="dashboard-card-label">Critical threats blocked</div>
+                </div>
+            </div>
+
+            <!-- Security Overview -->
+            <div class="dashboard-grid">
+                <div class="dashboard-card" style="grid-column: 1 / -1;">
+                    <div class="dashboard-card-header">
+                        <h3>Security Overview</h3>
+                        <div class="dashboard-card-icon red">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 2rem; flex-wrap: wrap; margin-top: 1rem;">
+                        <div>
+                            <div id="avg-risk-score" class="dashboard-card-value" style="font-size: 3rem;">0</div>
+                            <div class="dashboard-card-label">Average Risk Score</div>
+                        </div>
+                        <div style="flex: 1; min-width: 200px;">
+                            <div class="progress-bar-container" style="height: 12px;">
+                                <div id="overview-progress" class="progress-bar safe" style="width: 0%"></div>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; margin-top: 0.5rem; font-size: 0.8rem; color: var(--text-muted);">
+                                <span>Low Risk</span>
+                                <span>High Risk</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Scan History Table -->
+            <div class="table-card">
+                <h3>Recent Scan History</h3>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Content</th>
+                            <th>Status</th>
+                            <th>Risk Score</th>
+                            <th>Timestamp</th>
+                        </tr>
+                    </thead>
+                    <tbody id="scan-history-body">
+                        <tr>
+                            <td colspan="4" style="text-align: center; padding: 2rem; color: var(--text-muted);">
+                                No scans yet. Go to the homepage to analyze threats.
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Account Information -->
+            <div class="account-card">
+                <h3>Account Information</h3>
+                <div class="account-info-row">
+                    <span>Email</span>
+                    <span id="account-email">-</span>
+                </div>
+                <div class="account-info-row">
+                    <span>Status</span>
+                    <span id="account-status">-</span>
+                </div>
+                <div class="account-info-row">
+                    <span>Plan</span>
+                    <span id="account-plan">-</span>
+                </div>
+                <div class="account-info-row">
+                    <span>Last Login</span>
+                    <span id="account-joined">-</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

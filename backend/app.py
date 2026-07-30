@@ -5,7 +5,7 @@ from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 import joblib
 import numpy as np
-
+from utils.whitelist import is_whitelisted  
 from utils.feature_extractor import extract_url_features
 
 app = FastAPI()
@@ -48,18 +48,36 @@ def contact():
 
 
 # -------- PREDICTION API --------
+
 @app.post("/predict")
 def predict_url(data: URLRequest):
+
+    if is_whitelisted(data.url):
+        return {
+            "prediction": "Legitimate",
+            "risk_score": 0.0,
+            "confidence": 100.0,
+            "risk_level": "Low",
+            "reason": "Trusted domain (Whitelist)"
+        }
+
     try:
         features = extract_url_features(data.url)
         X = np.array([features])
 
-        prob = model.predict_proba(X)[0][1]
-        prediction = "Phishing" if prob >= 0.4 else "Legitimate"
+        prob = float(model.predict_proba(X)[0][1])
+
+        prediction = "Phishing" if prob >= 0.40 else "Legitimate"
 
         return {
             "prediction": prediction,
-            "risk_score": round(float(prob), 2)
+            "risk_score": round(prob * 100, 2),
+            "confidence": round(max(prob, 1 - prob) * 100, 2),
+            "risk_level": (
+                "High" if prob >= 0.80
+                else "Medium" if prob >= 0.40
+                else "Low"
+            )
         }
 
     except Exception as e:

@@ -38,7 +38,7 @@ df = pd.concat([df_legit, df_phish], ignore_index=True)
 df = df.sample(frac=1).reset_index(drop=True)
 
 # ---------- SAVE ----------
-df.to_csv("phishing_dataset.csv", index=False)
+df.to_csv("final_phishguard_dataset.csv", index=False)
 
-print("✅ Dataset created: phishing_dataset.csv")
+print("✅ Dataset created: final_phishguard_dataset.csv")
 print("Total rows:", len(df))

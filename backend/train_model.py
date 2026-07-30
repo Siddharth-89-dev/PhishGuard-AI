@@ -8,7 +8,7 @@ from sklearn.metrics import classification_report
 from utils.feature_extractor import extract_url_features
 
 # Load dataset (CSV version)
-df = pd.read_csv("phishing_dataset.csv")
+df = pd.read_csv("final_phishguard_dataset.csv")
 
 # Convert labels
 df["label"] = df["label"].map({
@@ -23,7 +23,7 @@ labels = df["label"]
 
 print("Extracting features...")
 
-# 🔥 ONLY 7 FEATURES
+# 🔥 ONLY 20 FEATURES
 X = np.array([extract_url_features(url) for url in urls])
 y = labels.values
 
@@ -34,9 +34,12 @@ X_train, X_test, y_train, y_test = train_test_split(
 
 # Model
 model = XGBClassifier(
-    n_estimators=200,
-    max_depth=5,
-    learning_rate=0.1,
+    n_estimators=400,
+    max_depth=7,
+    learning_rate=0.05,
+    subsample=0.9,
+    colsample_bytree=0.8,
+    min_child_weight=2,
     eval_metric="logloss",
     random_state=42
 )
@@ -52,4 +55,4 @@ print(classification_report(y_test, y_pred))
 # Save
 joblib.dump(model, "phish_model.pkl")
 
-print("\nModel saved (7-feature model)")
+print("\nModel saved (20-feature model)")
