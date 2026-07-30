@@ -28,8 +28,7 @@ class URLRequest(BaseModel):
 # -------- ROUTES --------
 @app.get("/")
 def home():
-    return FileResponse(os.path.join(FRONTEND_DIR, "index.html"))
-
+    return {"message": "PhishGuard AI API is running"}
 
 @app.get("/product")
 def product():
