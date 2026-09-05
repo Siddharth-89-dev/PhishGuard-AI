@@ -1,0 +1,8 @@
+url,label,confidence,source,timestamp
+https://open.spotify.com/?gad=1,legitimate,1.0,user_feedback,1787495398
+https://spotify.com,phishing,0.9186,auto,1787495613
+https://www.spotify.com,legitimate,0.9474,auto,1787495672
+https://open.spotify.com,phishing,0.9759,auto,1787495700
+https://open.spotify.com/intl-in/,phishing,0.9657,auto,1787495712
+https://spotify.com,phishing,0.9186,auto,1787496159
+https://example.com,phishing,0.9435,auto,1787496159

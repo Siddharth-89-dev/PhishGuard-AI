@@ -1,0 +1,44 @@
+{
+  "manifest_version": 3,
+  "name": "PhishGuard AI",
+  "description": "AI Powered Phishing Website Detector",
+  "version": "1.0",
+
+  "permissions": [
+    "activeTab",
+    "tabs",
+    "storage",
+    "scripting"
+  ],
+
+  "host_permissions": [
+    "<all_urls>",
+    "http://127.0.0.1:8000/*"
+  ],
+
+  "background": {
+    "service_worker": "background.js"
+  },
+
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "css": ["style.css"]
+    }
+  ],
+  "web_accessible_resources": [
+  {
+    "resources": [
+      "assets/*",
+      "assets/bunny/*.json"
+    ],
+    "matches": ["<all_urls>"]
+  } 
+  ],
+
+
+  "action": {
+    "default_popup": "popup.html"
+  }
+}

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="popup.css">
+</head>
+
+<body>
+
+<h2>🛡️ PhishGuard AI</h2>
+<div id="pg-popup-host">&nbsp;</div>
+<div id="pg-popup-status">Checking current tab&hellip;</div>
+
+<div id="pg-feedback">
+  <div id="pg-feedback-prompt">Was this verdict correct?</div>
+  <div id="pg-feedback-buttons">
+    <button id="pg-feedback-correct" class="pg-feedback-btn">✅ Correct</button>
+    <button id="pg-feedback-wrong" class="pg-feedback-btn">❌ Wrong</button>
+  </div>
+  <div id="pg-feedback-thanks">Thanks — the model will learn from this.</div>
+</div>
+
+<button id="pg-rescan">Rescan this page</button>
+
+<script src="popup.js"></script>
+</body>
+</html>
