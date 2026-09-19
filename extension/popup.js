@@ -58,13 +58,29 @@ function formatBytes(bytes) {
 // Check Backend Connection Health
 async function checkBackendHealth() {
   try {
-    const res = await fetch(`${API_BASE}/health`, { method: "GET", signal: AbortSignal.timeout(4000) });
+    // 1. First ask background service worker
+    const bgResponse = await new Promise((resolve) => {
+      chrome.runtime.sendMessage({ type: "PHISHGUARD_HEALTH_CHECK" }, (res) => {
+        if (chrome.runtime.lastError || !res) resolve(null);
+        else resolve(res);
+      });
+    });
+
+    if (bgResponse && bgResponse.ok) {
+      connectionPill.className = "connection-pill";
+      connText.textContent = "Active";
+      return true;
+    }
+
+    // 2. Direct fetch fallback with 8s timeout
+    const res = await fetch(`${API_BASE}/health`, { method: "GET", signal: AbortSignal.timeout(8000) });
     if (res.ok) {
       connectionPill.className = "connection-pill";
       connText.textContent = "Active";
       return true;
     }
   } catch (_) {}
+
   connectionPill.className = "connection-pill offline";
   connText.textContent = "Offline";
   return false;
@@ -278,11 +294,18 @@ rescanBtn.addEventListener("click", () => {
 
     chrome.runtime.sendMessage(
       { type: "PHISHGUARD_SCAN", url: tab.url, tabId: tab.id },
-      () => {
-        setTimeout(() => {
-          rescanBtn.classList.remove("loading");
+      (response) => {
+        rescanBtn.classList.remove("loading");
+        if (chrome.runtime.lastError || !response || !response.ok) {
+          verdictCard.className = "verdict-card state-warning";
+          verdictLabel.textContent = "Scan Pending";
+          verdictTitle.textContent = "Backend Connection Pending";
+          threatText.textContent = response?.error || "Render cloud service is connecting. Please click Rescan in a few moments.";
+        } else {
+          connectionPill.className = "connection-pill";
+          connText.textContent = "Active";
           refresh();
-        }, 350);
+        }
       }
     );
   });
@@ -295,4 +318,7 @@ openDashboardBtn.addEventListener("click", () => {
 // Initialize
 checkBackendHealth();
 refresh();
-setInterval(refresh, 2200);
+setInterval(() => {
+  refresh();
+  checkBackendHealth();
+}, 2500);

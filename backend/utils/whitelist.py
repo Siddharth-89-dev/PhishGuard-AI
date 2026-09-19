@@ -45,6 +45,7 @@ WHITELIST = {
     "vercel.com",
     "netlify.com",
     "render.com",
+    "onrender.com",
     "snapchat.com",
     "claude.ai",
 }

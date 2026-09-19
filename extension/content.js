@@ -131,35 +131,47 @@
   // ==========================================
   // 2. INITIAL URL SCAN (STAGE 1)
   // ==========================================
-  chrome.runtime.sendMessage(
-    { type: "PHISHGUARD_SCAN", url: currentUrl },
-    (response) => {
-      if (dismissed) return;
+  function scanCurrentPage(retried = false) {
+    chrome.runtime.sendMessage(
+      { type: "PHISHGUARD_SCAN", url: currentUrl },
+      (response) => {
+        if (dismissed) return;
 
-      if (chrome.runtime.lastError || !response) {
-        setState("error", "PhishGuard offline", null, "Offline");
-        return;
+        if (chrome.runtime.lastError || !response) {
+          if (!retried) {
+            setTimeout(() => scanCurrentPage(true), 3500);
+            return;
+          }
+          setState("error", "PhishGuard offline", null, "Offline");
+          return;
+        }
+
+        if (!response.ok) {
+          if (!retried) {
+            setTimeout(() => scanCurrentPage(true), 3500);
+            return;
+          }
+          const offline = /failed to fetch|networkerror/i.test(response.error || "");
+          setState("error", offline ? "Backend offline" : "Scan failed", null, "Error");
+          return;
+        }
+
+        const { prediction, risk_score, risk_level } = response.result;
+        const score = Math.round(Number(risk_score ?? 0));
+        const scoreText = `Risk score: ${score}/100`;
+
+        if (prediction === "Phishing" || risk_level === "High") {
+          setState("danger", "Phishing threat flagged", scoreText, "Threat Alert");
+        } else if (risk_level === "Medium" || score >= 40) {
+          setState("warning", "Use caution on this site", scoreText, "Caution");
+        } else {
+          setState("safe", "Looks safe", scoreText, "Verified Safe");
+        }
       }
+    );
+  }
 
-      if (!response.ok) {
-        const offline = /failed to fetch|networkerror/i.test(response.error || "");
-        setState("error", offline ? "Backend offline" : "Scan failed", null, "Error");
-        return;
-      }
-
-      const { prediction, risk_score, risk_level } = response.result;
-      const score = Math.round(Number(risk_score ?? 0));
-      const scoreText = `Risk score: ${score}/100`;
-
-      if (prediction === "Phishing" || risk_level === "High") {
-        setState("danger", "Phishing threat flagged", scoreText, "Threat Alert");
-      } else if (risk_level === "Medium" || score >= 40) {
-        setState("warning", "Use caution on this site", scoreText, "Caution");
-      } else {
-        setState("safe", "Looks safe", scoreText, "Verified Safe");
-      }
-    }
-  );
+  scanCurrentPage();
 
   // ==========================================
   // 3. NETWORK CHUNKING & DATA EGRESS OBSERVER

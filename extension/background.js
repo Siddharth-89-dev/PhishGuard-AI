@@ -2,7 +2,7 @@
 // Talks to the FastAPI backend so content scripts never have to make
 // cross-origin requests directly from a page (avoids page CSP issues).
 
-const API_BASE = "https://phishguard-ai-6qdq.onrender.com";
+const API_BASE = "https://phishguard-ai-6qdq.onrender.com".replace(/\/+$/, "");
 
 // tabId -> { url, result, timestamp }
 const scanCache = {};
@@ -10,17 +10,52 @@ const scanCache = {};
 // tabId -> { url, egress_data, evaluation, timestamp }
 const tabEgress = {};
 
+// Restore cache from session storage when service worker starts
+if (typeof chrome !== "undefined" && chrome.storage?.session) {
+  chrome.storage.session.get(["pg_scan_cache", "pg_tab_egress"]).then((data) => {
+    if (data?.pg_scan_cache) Object.assign(scanCache, data.pg_scan_cache);
+    if (data?.pg_tab_egress) Object.assign(tabEgress, data.pg_tab_egress);
+  }).catch(() => {});
+}
+
+function persistCache() {
+  try {
+    if (typeof chrome !== "undefined" && chrome.storage?.session) {
+      chrome.storage.session.set({
+        pg_scan_cache: scanCache,
+        pg_tab_egress: tabEgress,
+      }).catch(() => {});
+    }
+  } catch (_) {}
+}
+
+async function fetchWithRetry(url, options = {}, retries = 2, timeoutMs = 15000) {
+  for (let attempt = 0; attempt <= retries; attempt++) {
+    try {
+      const controller = new AbortController();
+      const timer = setTimeout(() => controller.abort(), timeoutMs);
+      const res = await fetch(url, { ...options, signal: controller.signal });
+      clearTimeout(timer);
+      return res;
+    } catch (err) {
+      if (attempt === retries) throw err;
+      // Wait 1.5s before retry (handles Render spin-up / transient cold boot)
+      await new Promise((r) => setTimeout(r, 1500));
+    }
+  }
+}
+
 async function scanUrl(url, networkTelemetry = null) {
   const payload = { url };
   if (networkTelemetry) {
     payload.network_telemetry = networkTelemetry;
   }
 
-  const res = await fetch(`${API_BASE}/predict`, {
+  const res = await fetchWithRetry(`${API_BASE}/predict`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(payload),
-  });
+  }, 2, 15000);
 
   if (!res.ok) {
     let detail = `Backend returned ${res.status}`;
@@ -37,11 +72,11 @@ async function scanUrl(url, networkTelemetry = null) {
 }
 
 async function sendFeedback(url, isPhishing) {
-  const res = await fetch(`${API_BASE}/feedback`, {
+  const res = await fetchWithRetry(`${API_BASE}/feedback`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ url, is_phishing: isPhishing }),
-  });
+  }, 1, 15000);
 
   if (!res.ok) {
     let detail = `Backend returned ${res.status}`;
@@ -58,11 +93,11 @@ async function sendFeedback(url, isPhishing) {
 }
 
 async function reportEgress(url, egressData) {
-  const res = await fetch(`${API_BASE}/telemetry/network-egress`, {
+  const res = await fetchWithRetry(`${API_BASE}/telemetry/network-egress`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ url, egress_data: egressData }),
-  });
+  }, 1, 15000);
 
   if (!res.ok) {
     let detail = `Backend returned ${res.status}`;
@@ -83,6 +118,17 @@ chrome.runtime.onInstalled.addListener(() => {
 });
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+  if (message?.type === "PHISHGUARD_HEALTH_CHECK") {
+    fetchWithRetry(`${API_BASE}/health`, { method: "GET" }, 1, 8000)
+      .then((res) => {
+        sendResponse({ ok: res && res.ok, status: res && res.ok ? "Active" : "Degraded" });
+      })
+      .catch((err) => {
+        sendResponse({ ok: false, error: err?.message || String(err) });
+      });
+    return true;
+  }
+
   if (message?.type === "PHISHGUARD_SCAN") {
     const tabId = sender.tab?.id ?? message.tabId;
     const networkTelemetry = tabId !== undefined ? tabEgress[tabId]?.egress_data : null;
@@ -91,6 +137,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
       .then((result) => {
         if (tabId !== undefined) {
           scanCache[tabId] = { url: message.url, result, timestamp: Date.now() };
+          persistCache();
         }
         sendResponse({ ok: true, result });
       })
@@ -114,6 +161,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
             evaluation,
             timestamp: Date.now(),
           };
+          persistCache();
         }
         sendResponse({ ok: true, evaluation });
       })
@@ -129,6 +177,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
             },
             timestamp: Date.now(),
           };
+          persistCache();
         }
         sendResponse({ ok: false, error: err?.message || String(err) });
       });
@@ -164,4 +213,5 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 chrome.tabs.onRemoved.addListener((tabId) => {
   delete scanCache[tabId];
   delete tabEgress[tabId];
+  persistCache();
 });
