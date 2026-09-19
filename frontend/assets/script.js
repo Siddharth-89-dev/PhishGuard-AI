@@ -1005,6 +1005,8 @@ const initUserProfile = () => {
     const authBtn = $('#sidebar-auth-btn');
     const authLabel = $('#sidebar-auth-label');
     const authIcon = $('#sidebar-auth-icon');
+    const mobileAuthBtn = $('#mobile-auth-btn');
+    const mobileAvatar = $('#mobile-avatar');
 
     if (isAuth && (user.email || user.name)) {
         // User IS logged in -> Show Account / Dashboard state
@@ -1036,6 +1038,21 @@ const initUserProfile = () => {
         pill.onclick = openAccount;
         if (authBtn) authBtn.onclick = openAccount;
         pill.title = `Logged in as ${user.email || displayName} (Click for Account Dashboard)`;
+
+        if (mobileAvatar) mobileAvatar.textContent = (displayName[0] || 'S').toUpperCase();
+        if (mobileAuthBtn) {
+            mobileAuthBtn.onclick = openAccount;
+            mobileAuthBtn.title = `Logged in as ${user.email || displayName} (Click for Dashboard)`;
+        }
+
+        const drawerAvatar = $('#drawer-avatar');
+        const drawerName = $('#drawer-user-name');
+        const drawerStatus = $('#drawer-user-status');
+        const drawerAuthBadge = $('#drawer-auth-badge');
+        if (drawerAvatar) drawerAvatar.textContent = (displayName[0] || 'S').toUpperCase();
+        if (drawerName) drawerName.textContent = displayName;
+        if (drawerStatus) drawerStatus.textContent = user.plan ? `${user.plan} • Active` : 'Active • Account';
+        if (drawerAuthBadge) drawerAuthBadge.textContent = 'Dashboard →';
     } else {
         // User is NOT logged in -> Show Login button
         if (nameEl) nameEl.textContent = 'Siddharth';
@@ -1066,6 +1083,81 @@ const initUserProfile = () => {
         pill.onclick = openLogin;
         if (authBtn) authBtn.onclick = openLogin;
         pill.title = 'Click to sign in to security console';
+
+        if (mobileAvatar) mobileAvatar.textContent = 'S';
+        if (mobileAuthBtn) {
+            mobileAuthBtn.onclick = openLogin;
+            mobileAuthBtn.title = 'Click to Sign In';
+        }
+
+        const drawerAvatar = $('#drawer-avatar');
+        const drawerName = $('#drawer-user-name');
+        const drawerStatus = $('#drawer-user-status');
+        const drawerAuthBadge = $('#drawer-auth-badge');
+        if (drawerAvatar) drawerAvatar.textContent = 'S';
+        if (drawerName) drawerName.textContent = 'Siddharth';
+        if (drawerStatus) drawerStatus.textContent = 'Click to Sign In';
+        if (drawerAuthBadge) drawerAuthBadge.textContent = 'Login →';
+    }
+
+    const mobileBrand = $('.mobile-brand-logo');
+    if (mobileBrand) {
+        mobileBrand.onclick = (e) => {
+            e.preventDefault();
+            Router.navigateTo('home');
+        };
+    }
+};
+
+// ============================================
+// 12C. MOBILE NAVIGATION DRAWER
+// ============================================
+const initMobileDrawer = () => {
+    const menuBtn = $('#mobile-menu-btn');
+    const drawer = $('#mobile-drawer');
+    const backdrop = $('#mobile-drawer-backdrop');
+    const closeBtn = $('#drawer-close-btn');
+
+    if (!drawer || !backdrop) return;
+
+    const openDrawer = () => {
+        drawer.classList.add('open');
+        backdrop.classList.add('open');
+        document.body.style.overflow = 'hidden';
+    };
+
+    const closeDrawer = () => {
+        drawer.classList.remove('open');
+        backdrop.classList.remove('open');
+        document.body.style.overflow = '';
+    };
+
+    if (menuBtn) menuBtn.onclick = openDrawer;
+    if (closeBtn) closeBtn.onclick = closeDrawer;
+    if (backdrop) backdrop.onclick = closeDrawer;
+
+    // Close on navigation item click inside drawer
+    $$('.drawer-nav-item, .drawer-quick-scan-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            closeDrawer();
+        });
+    });
+
+    // Close on Escape key
+    window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && drawer.classList.contains('open')) {
+            closeDrawer();
+        }
+    });
+
+    // Drawer Account Pill Click
+    const drawerUserBtn = $('#drawer-account-pill');
+    if (drawerUserBtn) {
+        drawerUserBtn.addEventListener('click', () => {
+            closeDrawer();
+            const isAuth = localStorage.getItem('phishguard_auth') === 'true';
+            window.location.href = isAuth ? '/dashboard' : '/login';
+        });
     }
 };
 
@@ -1083,5 +1175,6 @@ document.addEventListener('DOMContentLoaded', () => {
     updateHomeKPIs();
     updateSecurityStatus();
     initUserProfile();
+    initMobileDrawer();
 });
 

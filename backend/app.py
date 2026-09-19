@@ -350,6 +350,18 @@ def get_style():
 def get_script():
     return FileResponse(os.path.join(FRONTEND_DIR, "script.js"), media_type="application/javascript")
 
+@app.get("/favicon.ico")
+@app.get("/favicon.png")
+def get_favicon():
+    fav = os.path.join(FRONTEND_DIR, "favicon.png")
+    return FileResponse(fav, media_type="image/png")
+
+@app.get("/logo.png")
+@app.get("/logo_trans.png")
+def get_logo():
+    logo = os.path.join(FRONTEND_DIR, "logo_trans.png")
+    return FileResponse(logo, media_type="image/png")
+
 
 # =========================
 # PAGE ROUTES (clean, consistent URLs)

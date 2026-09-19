@@ -224,7 +224,18 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    filter: drop-shadow(0 4px 12px rgba(59, 130, 246, 0.35));
+    filter: drop-shadow(0 4px 14px rgba(56, 189, 248, 0.45));
+    border-radius: 10px;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.logo-shield img, 
+.brand-logo-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
 }
 
 .logo-shield svg {
