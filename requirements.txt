@@ -1,0 +1,13 @@
+fastapi==0.116.1
+uvicorn==0.35.0
+numpy==2.3.2
+pandas==2.3.2
+scikit-learn==1.7.1
+xgboost==3.0.4
+joblib==1.5.1
+pydantic==2.11.7
+python-multipart==0.0.20
+requests==2.32.4
+tldextract==5.3.0
+python-whois==0.9.5
+pyarrow==21.0.0
