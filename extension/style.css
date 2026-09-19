@@ -1,106 +1,323 @@
-/* ============================================
-   PhishGuard AI - injected page widget
-   ============================================ */
+/* ==========================================================
+   PhishGuard AI - Injected On-Page Floating Security Capsule
+   Apple iOS & visionOS Liquid Glass Optical Design
+   ========================================================== */
+
 #phishguard-bunny {
-  position: fixed;
-  bottom: 20px;
-  left: 20px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  min-width: 170px;
-  max-width: 240px;
-  background: #ffffff;
-  border-radius: 16px;
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.25);
-  padding: 12px 16px 12px 14px;
-  z-index: 2147483647;
-  font-family: Arial, Helvetica, sans-serif;
-  border-left: 5px solid #9ca3af;
-  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+  position: fixed !important;
+  bottom: 24px !important;
+  left: 24px !important;
+  z-index: 2147483647 !important;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Plus Jakarta Sans", "Segoe UI", Roboto, Helvetica, Arial, sans-serif !important;
+  line-height: 1.35 !important;
+  user-select: none !important;
+  pointer-events: auto !important;
+  opacity: 0;
+  transform: translateY(24px) scale(0.92);
+  animation: pgSlideFadeIn 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease !important;
+}
+
+#phishguard-bunny.pg-dismissing {
+  opacity: 0 !important;
+  transform: translateY(20px) scale(0.9) !important;
+  pointer-events: none !important;
+}
+
+@keyframes pgSlideFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(24px) scale(0.92);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Ambient Radial Glow Backdrop */
+#phishguard-bunny .pg-glow-backdrop {
+  position: absolute !important;
+  inset: -3px !important;
+  border-radius: 20px !important;
+  filter: blur(14px) !important;
+  opacity: 0.35 !important;
+  z-index: -1 !important;
+  pointer-events: none !important;
+  transition: all 0.4s ease !important;
+}
+
+/* Liquid Glass Capsule Body */
+#phishguard-bunny .pg-glass-pill {
+  position: relative !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 11px !important;
+  min-width: 220px !important;
+  max-width: 320px !important;
+  padding: 10px 14px 10px 12px !important;
+  border-radius: 18px !important;
+  background: rgba(13, 18, 30, 0.82) !important;
+  backdrop-filter: blur(24px) saturate(190%) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(190%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  box-shadow: 
+    0 12px 36px 0 rgba(0, 0, 0, 0.5),
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.32),
+    inset 0 -1px 1px 0 rgba(0, 0, 0, 0.4) !important;
+  cursor: default !important;
+  transition: 
+    transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.3s ease,
+    box-shadow 0.3s ease,
+    background 0.3s ease !important;
+}
+
+#phishguard-bunny:hover .pg-glass-pill {
+  transform: translateY(-2px) scale(1.015) !important;
+  border-color: rgba(255, 255, 255, 0.25) !important;
+  box-shadow: 
+    0 16px 42px 0 rgba(0, 0, 0, 0.6),
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.45) !important;
+}
+
+/* Icon Wrap & Bubble */
+#phishguard-bunny .pg-icon-wrap {
+  width: 34px !important;
+  height: 34px !important;
+  border-radius: 11px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex-shrink: 0 !important;
+  position: relative !important;
+  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.25) !important;
+  transition: all 0.3s ease !important;
 }
 
 #phishguard-bunny .pg-icon {
-  font-size: 24px;
-  line-height: 1;
-  flex-shrink: 0;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 20px !important;
+  height: 20px !important;
 }
 
-#phishguard-bunny .pg-text {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  min-width: 0;
+#phishguard-bunny .pg-icon svg {
+  width: 20px !important;
+  height: 20px !important;
+  display: block !important;
+}
+
+/* Text Content Stack */
+#phishguard-bunny .pg-content {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 1px !important;
+  min-width: 0 !important;
+  flex: 1 !important;
+}
+
+#phishguard-bunny .pg-top-row {
+  display: flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  margin-bottom: 2px !important;
+}
+
+#phishguard-bunny .pg-brand-tag {
+  font-size: 9.5px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.4px !important;
+  text-transform: uppercase !important;
+  color: #94a3b8 !important;
+}
+
+#phishguard-bunny .pg-badge-pill {
+  font-size: 8.5px !important;
+  font-weight: 700 !important;
+  padding: 1px 5px !important;
+  border-radius: 6px !important;
+  letter-spacing: 0.3px !important;
+  text-transform: uppercase !important;
 }
 
 #phishguard-bunny .pg-label {
-  font-size: 13px;
-  font-weight: 700;
-  color: #111827;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  font-size: 13px !important;
+  font-weight: 700 !important;
+  color: #ffffff !important;
+  letter-spacing: -0.25px !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
 }
 
 #phishguard-bunny .pg-score {
-  font-size: 12px;
-  color: #4b5563;
+  font-size: 11px !important;
+  font-weight: 500 !important;
+  color: #94a3b8 !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
 }
 
+/* Close Button */
 #phishguard-bunny #pg-close {
-  position: absolute;
-  top: 2px;
-  right: 6px;
-  border: none;
-  background: transparent;
-  font-size: 15px;
-  line-height: 1;
-  color: #9ca3af;
-  cursor: pointer;
-  padding: 2px 4px;
+  width: 20px !important;
+  height: 20px !important;
+  border-radius: 50% !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  background: rgba(255, 255, 255, 0.06) !important;
+  color: #94a3b8 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  cursor: pointer !important;
+  padding: 0 !important;
+  margin-left: 4px !important;
+  flex-shrink: 0 !important;
+  transition: all 0.2s ease !important;
 }
 
 #phishguard-bunny #pg-close:hover {
-  color: #374151;
+  background: rgba(255, 255, 255, 0.18) !important;
+  color: #ffffff !important;
+  border-color: rgba(255, 255, 255, 0.25) !important;
+  transform: scale(1.08) !important;
 }
 
-/* Scan states */
-.pg-state-scanning {
-  border-left-color: #9ca3af;
-}
-.pg-state-scanning .pg-icon {
-  animation: pg-pulse 1.1s ease-in-out infinite;
+#phishguard-bunny #pg-close svg {
+  width: 11px !important;
+  height: 11px !important;
 }
 
-.pg-state-safe {
-  border-left-color: #22c55e;
-  box-shadow: 0 5px 20px rgba(34, 197, 94, 0.25);
+/* ==========================================================
+   State Styles (Scanning, Safe, Warning, Danger, Error)
+   ========================================================== */
+
+/* 1. SCANNING STATE */
+.pg-state-scanning .pg-glow-backdrop {
+  background: radial-gradient(circle, rgba(56, 189, 248, 0.5) 0%, transparent 70%) !important;
+}
+.pg-state-scanning .pg-icon-wrap {
+  background: rgba(56, 189, 248, 0.15) !important;
+  border: 1px solid rgba(56, 189, 248, 0.3) !important;
+  color: #38bdf8 !important;
+}
+.pg-state-scanning .pg-badge-pill {
+  background: rgba(56, 189, 248, 0.18) !important;
+  color: #38bdf8 !important;
+  border: 1px solid rgba(56, 189, 248, 0.3) !important;
+}
+.pg-state-scanning .pg-spin-scan {
+  animation: pgSpinPulse 1.6s linear infinite !important;
+}
+@keyframes pgSpinPulse {
+  0% { transform: rotate(0deg) scale(0.95); }
+  50% { transform: rotate(180deg) scale(1.08); }
+  100% { transform: rotate(360deg) scale(0.95); }
 }
 
-.pg-state-warning {
-  border-left-color: #f59e0b;
-  box-shadow: 0 5px 20px rgba(245, 158, 11, 0.25);
+/* 2. SAFE STATE (Verified Legitimate) */
+.pg-state-safe .pg-glow-backdrop {
+  background: radial-gradient(circle, rgba(16, 185, 129, 0.45) 0%, transparent 70%) !important;
+}
+.pg-state-safe .pg-glass-pill {
+  border-color: rgba(16, 185, 129, 0.28) !important;
+  box-shadow: 
+    0 12px 36px 0 rgba(0, 0, 0, 0.5),
+    0 0 20px rgba(16, 185, 129, 0.2),
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.35) !important;
+}
+.pg-state-safe .pg-icon-wrap {
+  background: rgba(16, 185, 129, 0.18) !important;
+  border: 1px solid rgba(16, 185, 129, 0.38) !important;
+  color: #34d399 !important;
+  box-shadow: 0 0 14px rgba(16, 185, 129, 0.3) !important;
+}
+.pg-state-safe .pg-badge-pill {
+  background: rgba(16, 185, 129, 0.16) !important;
+  color: #34d399 !important;
+  border: 1px solid rgba(16, 185, 129, 0.3) !important;
+}
+.pg-state-safe .pg-label {
+  color: #f0fdf4 !important;
 }
 
-.pg-state-danger {
-  border-left-color: #ef4444;
-  box-shadow: 0 5px 20px rgba(239, 68, 68, 0.3);
+/* 3. WARNING STATE (Suspicious) */
+.pg-state-warning .pg-glow-backdrop {
+  background: radial-gradient(circle, rgba(245, 158, 11, 0.55) 0%, transparent 70%) !important;
 }
-.pg-state-danger .pg-icon {
-  animation: pg-shake 0.6s ease-in-out;
+.pg-state-warning .pg-glass-pill {
+  border-color: rgba(245, 158, 11, 0.38) !important;
+  box-shadow: 
+    0 12px 36px 0 rgba(0, 0, 0, 0.5),
+    0 0 22px rgba(245, 158, 11, 0.25),
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.35) !important;
+}
+.pg-state-warning .pg-icon-wrap {
+  background: rgba(245, 158, 11, 0.18) !important;
+  border: 1px solid rgba(245, 158, 11, 0.45) !important;
+  color: #fbbf24 !important;
+  box-shadow: 0 0 16px rgba(245, 158, 11, 0.35) !important;
+}
+.pg-state-warning .pg-badge-pill {
+  background: rgba(245, 158, 11, 0.18) !important;
+  color: #fbbf24 !important;
+  border: 1px solid rgba(245, 158, 11, 0.35) !important;
+}
+.pg-state-warning .pg-label {
+  color: #fefce8 !important;
 }
 
-.pg-state-error {
-  border-left-color: #9ca3af;
+/* 4. DANGER STATE (Phishing Attack / Exfiltration) */
+.pg-state-danger .pg-glow-backdrop {
+  background: radial-gradient(circle, rgba(244, 63, 94, 0.65) 0%, transparent 70%) !important;
 }
-
-@keyframes pg-pulse {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.15); }
+.pg-state-danger .pg-glass-pill {
+  border-color: rgba(244, 63, 94, 0.45) !important;
+  box-shadow: 
+    0 14px 42px 0 rgba(0, 0, 0, 0.55),
+    0 0 28px rgba(244, 63, 94, 0.35),
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.4) !important;
+  animation: pgPulseDanger 2.5s infinite alternate !important;
 }
-
-@keyframes pg-shake {
+@keyframes pgPulseDanger {
+  0% { box-shadow: 0 12px 36px rgba(0, 0, 0, 0.5), 0 0 20px rgba(244, 63, 94, 0.25); }
+  100% { box-shadow: 0 14px 42px rgba(0, 0, 0, 0.6), 0 0 32px rgba(244, 63, 94, 0.5); }
+}
+.pg-state-danger .pg-icon-wrap {
+  background: rgba(244, 63, 94, 0.22) !important;
+  border: 1px solid rgba(244, 63, 94, 0.55) !important;
+  color: #fb7185 !important;
+  box-shadow: 0 0 18px rgba(244, 63, 94, 0.45) !important;
+  animation: pgShake 0.6s ease-in-out !important;
+}
+@keyframes pgShake {
   0%, 100% { transform: rotate(0deg); }
   25% { transform: rotate(-8deg); }
   75% { transform: rotate(8deg); }
+}
+.pg-state-danger .pg-badge-pill {
+  background: rgba(244, 63, 94, 0.22) !important;
+  color: #fb7185 !important;
+  border: 1px solid rgba(244, 63, 94, 0.45) !important;
+}
+.pg-state-danger .pg-label {
+  color: #fff1f2 !important;
+}
+
+/* 5. ERROR STATE */
+.pg-state-error .pg-glow-backdrop {
+  background: radial-gradient(circle, rgba(148, 163, 184, 0.3) 0%, transparent 70%) !important;
+}
+.pg-state-error .pg-icon-wrap {
+  background: rgba(148, 163, 184, 0.15) !important;
+  border: 1px solid rgba(148, 163, 184, 0.3) !important;
+  color: #94a3b8 !important;
+}
+.pg-state-error .pg-badge-pill {
+  background: rgba(148, 163, 184, 0.15) !important;
+  color: #94a3b8 !important;
+  border: 1px solid rgba(148, 163, 184, 0.3) !important;
 }

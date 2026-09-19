@@ -1,0 +1,52 @@
+{
+  "admission.uniteduniversity.edu.in": {
+    "confirmations": 3,
+    "flags": 0,
+    "promoted": true
+  },
+  "amazon.in": {
+    "confirmations": 1,
+    "flags": 0,
+    "promoted": false
+  },
+  "chatgpt.com": {
+    "confirmations": 1,
+    "flags": 0,
+    "promoted": false
+  },
+  "claude.ai": {
+    "confirmations": 1,
+    "flags": 0,
+    "promoted": false
+  },
+  "file": {
+    "confirmations": 1,
+    "flags": 0,
+    "promoted": false
+  },
+  "ftw.riotgames.com": {
+    "confirmations": 1,
+    "flags": 0,
+    "promoted": false
+  },
+  "my-safe-company-portal.com": {
+    "confirmations": 1,
+    "flags": 0,
+    "promoted": false
+  },
+  "student.icampuserp.in": {
+    "confirmations": 2,
+    "flags": 0,
+    "promoted": false
+  },
+  "verified-safe-portal.com": {
+    "confirmations": 1,
+    "flags": 0,
+    "promoted": false
+  },
+  "youtube.com": {
+    "confirmations": 3,
+    "flags": 0,
+    "promoted": true
+  }
+}

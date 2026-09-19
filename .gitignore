@@ -1,8 +1,13 @@
-﻿__pycache__/
+__pycache__/
 *.py[cod]
 *.bak
+*.orig
 .venv/
 venv/
 env/
 .env
 *.log
+backend/collected_archive/
+backend/collected_dataset.csv
+
+

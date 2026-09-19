@@ -108,72 +108,75 @@ PhishGuard-AI/
 git clone https://github.com/Siddharth-89-dev/PhishGuard-AI.git
 cd PhishGuard-AI
 ```
-Create Virtual Environment
+
+### Create Virtual Environment
+
+```bash
+# Windows
 python -m venv venv
-Activate Environment
-
-Windows:
-
 venv\Scripts\activate
 
-Linux/Mac:
-
+# Linux/Mac
+python3 -m venv venv
 source venv/bin/activate
-Install Dependencies
+```
+
+### Install Dependencies
+
+```bash
 pip install -r requirements.txt
-▶️ Running the Backend
+```
 
-Navigate to backend directory:
+### ▶️ Running the Backend Server
 
+```bash
 cd backend
+python -m uvicorn app:app --host 127.0.0.1 --port 8000 --reload
+```
 
-Start FastAPI server:
+* **Web Application UI:** [http://127.0.0.1:8000](http://127.0.0.1:8000)
+* **Interactive API Documentation:** [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
+* **Security Console / Dashboard:** [http://127.0.0.1:8000/dashboard](http://127.0.0.1:8000/dashboard)
+* **Authentication:** [http://127.0.0.1:8000/login](http://127.0.0.1:8000/login)
 
-uvicorn app:app --reload
+---
 
-Server will be available at:
+## 🧩 Browser Extension (Network Chunking Egress Guard)
 
-http://127.0.0.1:8000
+PhishGuard AI includes a Manifest V3 browser extension with real-time DOM mutation monitoring and client-side credential egress protection:
 
-API Documentation:
+1. Open Chrome / Edge and navigate to `chrome://extensions`.
+2. Enable **Developer mode** (top right toggle).
+3. Click **Load unpacked** and select the `extension/` folder.
+4. The extension will monitor active tab egress streams and provide inline phishing alerts.
 
-http://127.0.0.1:8000/docs
-🧠 Machine Learning Workflow
-Collect phishing and legitimate URL datasets.
-Preprocess and clean data.
-Extract URL-based features.
-Train multiple ML models.
-Evaluate performance metrics.
-Select XGBoost as the final model.
-Deploy model through FastAPI.
-📊 Model Features
+---
 
-The model analyzes features such as:
+## 🧠 Machine Learning & Multi-Tier Workflow
 
-URL Length
-Number of Dots
-Presence of HTTPS
-Number of Subdomains
-Suspicious Keywords
-Special Characters
-Domain Structure
-🎯 Future Enhancements
-Browser Extension Integration
-Email Phishing Detection
-Domain Reputation Analysis
-WHOIS Information Lookup
-Deep Learning-Based Detection
-Real-Time Threat Intelligence Integration
-📈 Project Objectives
+1. **Layer 1:** High-speed cache and domain reputation whitelist.
+2. **Layer 2:** XGBoost ML model (30 structural URL features, unskewed www-invariance).
+3. **Layer 3:** Real-time WHOIS age auditing and Safe Browsing fallback.
+4. **Layer 4:** Client-side DOM mutation observer & Network Chunking egress guard (0.08 ms).
+5. **Layer 5:** Backend deep threat telemetry and adaptive feedback retraining.
 
-The primary objective of PhishGuard AI is to provide an intelligent and proactive phishing detection system capable of identifying malicious websites before users become victims of cyberattacks.
+---
 
-👨‍💻 Author
+## 📊 Model Features
 
-Siddharth Sharma
+The XGBoost model analyzes 30 key URL and structural indicators:
+* URL length, token entropy, and character distributions
+* Domain depth, subdomain count, and multi-TLD patterns
+* Lexical keyword presence (login, verify, secure, banking, auth tokens)
+* HTTPS certificate consistency and IP-host formatting
+* Suspicious Unicode/Punycoding and delimiter counts
 
-B.Tech Computer Science & Engineering
+---
 
-Cybersecurity & Machine Learning Enthusiast
+## 👨‍💻 Author
 
-GitHub: https://github.com/Siddharth-89-dev
+**Siddharth Sharma**  
+*B.Tech Computer Science & Engineering*  
+Cybersecurity & Machine Learning Enthusiast  
+GitHub: [https://github.com/Siddharth-89-dev](https://github.com/Siddharth-89-dev)
+

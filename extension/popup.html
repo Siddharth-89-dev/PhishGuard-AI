@@ -1,27 +1,181 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <link rel="stylesheet" href="popup.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PhishGuard AI</title>
+  <link rel="stylesheet" href="popup.css" />
 </head>
-
 <body>
+  <!-- Ambient Glass Glow Orbs -->
+  <div class="glass-orb orb-1"></div>
+  <div class="glass-orb orb-2"></div>
+  <div class="glass-orb orb-3"></div>
 
-<h2>🛡️ PhishGuard AI</h2>
-<div id="pg-popup-host">&nbsp;</div>
-<div id="pg-popup-status">Checking current tab&hellip;</div>
+  <div class="popup-container">
+    <!-- Header -->
+    <header class="app-header">
+      <div class="brand-group">
+        <div class="brand-icon-wrap">
+          <svg class="brand-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            <path d="m9 12 2 2 4-4"/>
+          </svg>
+          <span class="icon-pulse-glow"></span>
+        </div>
+        <div class="brand-titles">
+          <div class="brand-title-row">
+            <span class="brand-name">PhishGuard</span>
+            <span class="brand-badge">AI 2.5</span>
+          </div>
+          <span class="brand-sub">Zero-Day Neural Threat Defense</span>
+        </div>
+      </div>
 
-<div id="pg-feedback">
-  <div id="pg-feedback-prompt">Was this verdict correct?</div>
-  <div id="pg-feedback-buttons">
-    <button id="pg-feedback-correct" class="pg-feedback-btn">✅ Correct</button>
-    <button id="pg-feedback-wrong" class="pg-feedback-btn">❌ Wrong</button>
+      <div class="connection-pill" id="pg-connection-pill" title="Backend Server Status">
+        <span class="status-dot"></span>
+        <span class="status-text" id="pg-conn-text">Active</span>
+      </div>
+    </header>
+
+    <!-- Safari-Style URL Capsule -->
+    <div class="url-capsule" id="pg-url-capsule">
+      <div class="capsule-icon" id="pg-lock-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+          <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+        </svg>
+      </div>
+      <div class="capsule-host-wrap">
+        <span class="capsule-host" id="pg-popup-host">Scanning tab...</span>
+      </div>
+      <span class="capsule-proto" id="pg-proto-badge">HTTPS</span>
+    </div>
+
+    <!-- Main Verdict Card -->
+    <div class="verdict-card" id="pg-verdict-card">
+      <div class="verdict-header">
+        <div class="verdict-icon-bubble" id="pg-verdict-icon">
+          <svg class="icon-shield-state" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          </svg>
+        </div>
+        <div class="verdict-info">
+          <span class="verdict-label" id="pg-verdict-label">Analysis in progress</span>
+          <div class="verdict-headline" id="pg-verdict-title">Evaluating page safety...</div>
+        </div>
+      </div>
+
+      <!-- Risk Score Meter Box -->
+      <div class="meter-panel">
+        <div class="meter-meta">
+          <span class="meter-title">Threat Probability</span>
+          <div class="meter-score-group">
+            <span class="meter-number" id="pg-meter-number">0</span>
+            <span class="meter-percent">%</span>
+          </div>
+        </div>
+        <div class="meter-bar-track">
+          <div class="meter-bar-fill" id="pg-meter-fill"></div>
+        </div>
+        <div class="meter-footer">
+          <span class="risk-badge" id="pg-risk-badge">Low Risk</span>
+          <span class="confidence-text" id="pg-confidence-text">AI Confidence: 100%</span>
+        </div>
+      </div>
+
+      <!-- Threat Reason Chip -->
+      <div class="threat-intel-box" id="pg-threat-box">
+        <svg class="intel-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10"/>
+          <line x1="12" y1="16" x2="12" y2="12"/>
+          <line x1="12" y1="8" x2="12.01" y2="8"/>
+        </svg>
+        <span class="intel-text" id="pg-threat-text">Observing lexical features and trust whitelists...</span>
+      </div>
+    </div>
+
+    <!-- Network Chunking & Data Egress Guard Card -->
+    <div class="egress-card" id="pg-egress-card">
+      <div class="egress-header">
+        <div class="egress-title-group">
+          <span class="egress-radar-dot"></span>
+          <span class="egress-title">LIVE NETWORK EGRESS</span>
+        </div>
+        <span class="egress-pill" id="pg-egress-badge">Listening</span>
+      </div>
+
+      <div class="egress-grid">
+        <div class="egress-tile">
+          <span class="egress-val" id="pg-bytes-val">0 B</span>
+          <span class="egress-lbl">Outbound</span>
+        </div>
+        <div class="egress-tile">
+          <span class="egress-val" id="pg-reqs-val">0</span>
+          <span class="egress-lbl">Chunks</span>
+        </div>
+        <div class="egress-tile">
+          <span class="egress-val" id="pg-cred-val">Guarded</span>
+          <span class="egress-lbl">Cred Guard</span>
+        </div>
+      </div>
+
+      <div class="egress-note" id="pg-egress-detail">
+        Observing browser resource chunks & keystroke timing...
+      </div>
+    </div>
+
+    <!-- Feedback Pill Controls -->
+    <div class="feedback-card" id="pg-feedback-card">
+      <div class="feedback-content" id="pg-feedback-prompt-wrap">
+        <span class="feedback-prompt">Help the AI improve. Was this verdict accurate?</span>
+        <div class="feedback-btn-row">
+          <button class="feedback-btn btn-confirm" id="pg-feedback-correct">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="13" height="13">
+              <polyline points="20 6 9 17 4 12"/>
+            </svg>
+            <span>Accurate</span>
+          </button>
+          <button class="feedback-btn btn-dispute" id="pg-feedback-wrong">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="13" height="13">
+              <line x1="18" y1="6" x2="6" y2="18"/>
+              <line x1="6" y1="6" x2="18" y2="18"/>
+            </svg>
+            <span>Inaccurate</span>
+          </button>
+        </div>
+      </div>
+      <div class="feedback-success" id="pg-feedback-thanks" style="display:none;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="15" height="15">
+          <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+          <polyline points="22 4 12 14.01 9 11.01"/>
+        </svg>
+        <span>Feedback recorded & queued for model retraining.</span>
+      </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="action-row">
+      <button class="rescan-btn" id="pg-rescan">
+        <svg class="btn-icon-spin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+          <polyline points="23 4 23 10 17 10"/>
+          <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/>
+        </svg>
+        <span>Rescan Page</span>
+      </button>
+
+      <button class="dashboard-link-btn" id="pg-open-dashboard" title="Open PhishGuard Security Dashboard">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15">
+          <rect x="3" y="3" width="7" height="7"/>
+          <rect x="14" y="3" width="7" height="7"/>
+          <rect x="14" y="14" width="7" height="7"/>
+          <rect x="3" y="14" width="7" height="7"/>
+        </svg>
+      </button>
+    </div>
+
   </div>
-  <div id="pg-feedback-thanks">Thanks — the model will learn from this.</div>
-</div>
 
-<button id="pg-rescan">Rescan this page</button>
-
-<script src="popup.js"></script>
+  <script src="popup.js"></script>
 </body>
 </html>

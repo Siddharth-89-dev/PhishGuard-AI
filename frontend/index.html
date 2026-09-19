@@ -1,243 +1,819 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PhishGuard - Detect Phishing Threats Instantly</title>
-    <meta name="description" content="AI-powered phishing detection. Analyze suspicious links, emails, and messages with enterprise-grade security insights.">
-    <link rel="stylesheet" href="style.css">
+    <title>PhishGuard - AI-Powered Phishing Detection</title>
+    <meta name="description" content="AI-powered phishing detection platform. Analyze suspicious links with enterprise security insights.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css?v=4.3">
+    <link rel="stylesheet" href="/assets/style.css?v=4.3">
+    <script src="script.js?v=4.3" defer></script>
 </head>
 <body>
+    <!-- Ambient Luminous Background Orbs -->
+    <div class="ambient-glow glow-1"></div>
+    <div class="ambient-glow glow-2"></div>
+    <div class="ambient-glow glow-3"></div>
+    <div class="ambient-glow glow-4"></div>
 
-    <!-- Navbar -->
-    <nav class="navbar">
-        <a href="index.html" class="nav-brand">
-            <div class="shield-icon">
-                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/>
-                </svg>
-            </div>
-            PhishGuard
-        </a>
-        <ul class="nav-links">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="index.html#features">Features</a></li>
-            <li><a href="index.html#how-it-works">About</a></li>
-            <li><a href="index.html#contact">Contact</a></li>
-            <li><a href="login.html" class="nav-login-btn">Login</a></li>
-        </ul>
-        <button class="mobile-menu-btn">&#9776;</button>
-    </nav>
-
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-content">
-            <div class="hero-badge">
-                <span class="pulse"></span>
-                Enterprise Security Platform
-            </div>
-            <h1 class="hero-title">
-                Detect Phishing Threats <span class="highlight">Instantly</span>
-            </h1>
-            <p class="hero-subtitle">
-                Analyze suspicious links, emails, and messages with AI-powered security insights.
-            </p>
-        </div>
-
-        <!-- Scanner Card -->
-        <div class="scanner-container">
-            <div class="scanner-card">
-                <div class="scanner-header">
-                    <div class="icon">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
-                            <path d="M3 3v5h5"/>
-                            <path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"/>
-                            <path d="M16 21h5v-5"/>
+    <div class="app-layout">
+        <!-- ==============================================
+             LEFT SIDEBAR NAVIGATION
+             ============================================== -->
+        <aside class="sidebar">
+            <div class="sidebar-top">
+                <a href="#home" class="brand-logo">
+                    <div class="logo-shield">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2L4 5V11.5C4 16.5 7.5 21 12 22.5C16.5 21 20 16.5 20 11.5V5L12 2Z" fill="url(#brand-shield-grad)"/>
+                            <path d="M9 12L11 14L15 10" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <defs>
+                                <linearGradient id="brand-shield-grad" x1="4" y1="2" x2="20" y2="22.5" gradientUnits="userSpaceOnUse">
+                                    <stop stop-color="#3B82F6"/>
+                                    <stop offset="1" stop-color="#6366F1"/>
+                                </linearGradient>
+                            </defs>
                         </svg>
                     </div>
-                    <h3>Threat Scanner</h3>
+                    <span class="brand-name">PhishGuard</span>
+                </a>
+
+                <nav class="nav-menu">
+                    <button class="nav-item active" data-view="home">
+                        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                            <polyline points="9 22 9 12 15 12 15 22"/>
+                        </svg>
+                        <span>Home</span>
+                    </button>
+                    <button class="nav-item" data-view="scan">
+                        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"/>
+                            <circle cx="12" cy="12" r="3"/>
+                            <line x1="12" y1="2" x2="12" y2="5"/>
+                            <line x1="12" y1="19" x2="12" y2="22"/>
+                            <line x1="2" y1="12" x2="5" y2="12"/>
+                            <line x1="19" y1="12" x2="22" y2="12"/>
+                        </svg>
+                        <span>Scan</span>
+                    </button>
+                    <button class="nav-item" data-view="history">
+                        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"/>
+                            <polyline points="12 6 12 12 14 14"/>
+                        </svg>
+                        <span>History</span>
+                    </button>
+                    <button class="nav-item" data-view="reports">
+                        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                            <polyline points="14 2 14 8 20 8"/>
+                            <line x1="16" y1="13" x2="8" y2="13"/>
+                            <line x1="16" y1="17" x2="8" y2="17"/>
+                            <polyline points="10 9 9 9 8 9"/>
+                        </svg>
+                        <span>Reports</span>
+                    </button>
+                    <button class="nav-item" data-view="settings">
+                        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="3"/>
+                            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+                        </svg>
+                        <span>Settings</span>
+                    </button>
+                </nav>
+            </div>
+
+            <!-- Floating Badge Card in Sidebar -->
+            <div class="sidebar-bottom">
+                <div class="sidebar-info-card">
+                    <div class="info-shield-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                        </svg>
+                    </div>
+                    <h4>Stronger together</h4>
+                    <p>Stay safe, stay aware.</p>
                 </div>
-                <textarea 
-                    id="scanner-textarea" 
-                    class="scanner-textarea" 
-                    placeholder="Paste suspicious content here..."
-                ></textarea>
-                <div class="scanner-footer">
-                    <span id="char-counter" class="char-counter">0 characters</span>
-                    <button id="analyze-btn" class="analyze-btn">
-                        <span class="spinner"></span>
-                        <span class="btn-text">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: middle; margin-right: 6px;">
-                                <circle cx="11" cy="11" r="8"/>
-                                <path d="m21 21-4.35-4.35"/>
-                            </svg>
-                            Analyze Threat
-                        </span>
+
+                <!-- User Profile / Dynamic Auth Action Pill -->
+                <div class="user-profile-pill" id="user-profile-btn" role="button" tabindex="0" title="Account Access">
+                    <div class="user-avatar-wrapper">
+                        <div class="user-avatar" id="sidebar-avatar">S</div>
+                        <span class="avatar-status-dot" id="sidebar-status-dot" title="Session Status"></span>
+                    </div>
+                    <div class="user-meta">
+                        <span class="user-name" id="sidebar-user-name">Siddharth</span>
+                        <span class="user-plan" id="sidebar-user-status">Click to Login</span>
+                    </div>
+                    <button class="pill-auth-btn login-state" id="sidebar-auth-btn" type="button" title="Sign In">
+                        <span class="auth-btn-label" id="sidebar-auth-label">Login</span>
+                        <svg class="auth-btn-icon" id="sidebar-auth-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                            <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/>
+                            <polyline points="10 17 15 12 10 7"/>
+                            <line x1="15" y1="12" x2="3" y2="12"/>
+                        </svg>
                     </button>
                 </div>
             </div>
+        </aside>
 
-            <!-- Results Card -->
-            <div id="results-card" class="results-card">
-                <div class="results-header">
-                    <span id="status-badge" class="status-badge">
-                        <span class="dot"></span> Safe
-                    </span>
-                    <span id="scan-timestamp" class="scan-timestamp"></span>
-                </div>
-
-                <div class="risk-score-section">
-                    <div class="risk-score-header">
-                        <span>Risk Score</span>
-                        <span id="risk-score-value" class="risk-score-value">0</span>
-                    </div>
-                    <div class="progress-bar-container">
-                        <div id="progress-bar" class="progress-bar" style="width: 0%"></div>
-                    </div>
-                </div>
-
-                <div class="results-grid">
-                    <div class="result-item">
-                        <h4>Threat Summary</h4>
-                        <p id="threat-summary">No threats detected.</p>
-                    </div>
-                    <div class="result-item">
-                        <h4>Threat Indicators</h4>
-                        <ul id="threat-indicators">
-                            <li>No suspicious URLs detected</li>
-                        </ul>
-                    </div>
-                    <div class="result-item">
-                        <h4>Recommended Actions</h4>
-                        <ul id="recommended-actions">
-                            <li>Content is safe to proceed</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Features Section -->
-    <section id="features" class="section">
-        <div class="section-header fade-in">
-            <span class="section-label">Features</span>
-            <h2 class="section-title">Enterprise-Grade Protection</h2>
-            <p class="section-subtitle">
-                Advanced security tools designed to keep your organization safe from evolving phishing threats.
-            </p>
-        </div>
-        <div class="features-grid">
-            <div class="feature-card fade-in">
-                <div class="feature-icon">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M12 2a10 10 0 1 0 10 10 4 4 0 0 1-5-5 4 4 0 0 1-5-5"/>
-                        <path d="M8.5 8.5v.01"/>
-                        <path d="M16 15.5v.01"/>
-                        <path d="M12 12v.01"/>
-                        <path d="M11 17v.01"/>
-                        <path d="M7 14v.01"/>
+        <!-- ==============================================
+             MAIN CONTENT WRAPPER
+             ============================================== -->
+        <main class="main-wrapper">
+            <!-- Top App Header -->
+            <header class="app-header">
+                <div class="search-box">
+                    <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"/>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"/>
                     </svg>
+                    <input type="text" id="global-search-input" placeholder="Search scans, domains, or reports...">
+                    <kbd class="search-kbd">⌘ K</kbd>
                 </div>
-                <h3>AI Threat Detection</h3>
-                <p>Machine learning algorithms analyze patterns and behaviors to identify zero-day phishing attacks with high accuracy.</p>
-            </div>
-            <div class="feature-card fade-in">
-                <div class="feature-icon">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
-                    </svg>
+
+                <div class="header-actions">
+                    <!-- Theme Toggle -->
+                    <button class="theme-toggle-btn" id="theme-toggle" title="Toggle Light/Dark mode" aria-label="Toggle theme">
+                        <svg class="sun-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="5"/>
+                            <line x1="12" y1="1" x2="12" y2="3"/>
+                            <line x1="12" y1="21" x2="12" y2="23"/>
+                            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+                            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                            <line x1="1" y1="12" x2="3" y2="12"/>
+                            <line x1="21" y1="12" x2="23" y2="12"/>
+                            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+                            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+                        </svg>
+                        <svg class="moon-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                        </svg>
+                    </button>
+
+                    <!-- Notifications -->
+                    <button class="icon-action-btn" id="notif-btn" title="Notifications">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+                            <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+                        </svg>
+                        <span class="badge-dot">1</span>
+                    </button>
+
+                    <!-- Upgrade to Pro -->
+                    <button class="upgrade-btn-header" id="upgrade-header-btn">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M5 16L3 5l5.5 5L12 4l3.5 6L21 5l-2 11H5zm14 3c0 .6-.4 1-1 1H6c-.6 0-1-.4-1-1v-1h14v1z"/>
+                        </svg>
+                        <span>Upgrade to Pro</span>
+                    </button>
                 </div>
-                <h3>Real-Time Analysis</h3>
-                <p>Instant threat assessment with sub-second response times. Get immediate security verdicts on any suspicious content.</p>
-            </div>
-            <div class="feature-card fade-in">
-                <div class="feature-icon">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
-                        <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
-                    </svg>
+            </header>
+
+            <div class="content-scrollable">
+                <!-- ==============================================
+                     VIEW 1: HOME (Details & System Info)
+                     ============================================== -->
+                <div class="view-section active" id="view-home">
+                    <!-- Hero Showcase Banner -->
+                    <section class="hero-glass-card">
+                        <div class="hero-left">
+                            <h1 class="hero-headline">
+                                Detect<br>
+                                Phishing Threats<br>
+                                <span class="gradient-text">Instantly</span>
+                            </h1>
+                            <p class="hero-subtext">
+                                PhishGuard AI is an intelligent cybersecurity system leveraging XGBoost Machine Learning and multi-layered threat intelligence to analyze URLs and block phishing attacks in real time.
+                            </p>
+
+                            <div class="hero-badges-row">
+                                <div class="badge-pill">
+                                    <span class="badge-icon purple-bg">🛡️</span>
+                                    <span>AI Powered (XGBoost)</span>
+                                </div>
+                                <div class="badge-pill">
+                                    <span class="badge-icon green-bg">✓</span>
+                                    <span>Real-time Analysis</span>
+                                </div>
+                                <div class="badge-pill">
+                                    <span class="badge-icon blue-bg">🎯</span>
+                                    <span>96.5% Accuracy</span>
+                                </div>
+                                <div class="badge-pill">
+                                    <span class="badge-icon indigo-bg">🔒</span>
+                                    <span>WHOIS &amp; Safe Browsing</span>
+                                </div>
+                            </div>
+
+                            <div style="margin-top: 28px;">
+                                <button class="launch-scan-btn" id="hero-start-scan-btn">
+                                    <span>Go to URL Scanner</span>
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                        <line x1="5" y1="12" x2="19" y2="12"/>
+                                        <polyline points="12 5 19 12 12 19"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="hero-right">
+                            <div class="shield-3d-wrapper">
+                                <div class="floating-pill-top">
+                                    <span class="dot-pulse"></span>
+                                    <span>Stay Safe &bull; Browse Smarter</span>
+                                </div>
+
+                                <div class="shield-3d-core">
+                                    <div class="orbit-ring ring-1"></div>
+                                    <div class="orbit-ring ring-2"></div>
+                                    <div class="shield-glass-body">
+                                        <svg class="shield-svg" width="120" height="140" viewBox="0 0 100 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <defs>
+                                                <linearGradient id="shield-grad" x1="10" y1="10" x2="90" y2="110" gradientUnits="userSpaceOnUse">
+                                                    <stop stop-color="#60A5FA" stop-opacity="0.85"/>
+                                                    <stop offset="0.5" stop-color="#3B82F6" stop-opacity="0.7"/>
+                                                    <stop offset="1" stop-color="#4F46E5" stop-opacity="0.9"/>
+                                                </linearGradient>
+                                                <filter id="shield-glow" x="-20%" y="-20%" width="140%" height="140%">
+                                                    <feGaussianBlur stdDeviation="10" result="blur"/>
+                                                    <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+                                                </filter>
+                                            </defs>
+                                            <path d="M50 8L15 22V55C15 80 30 102 50 110C70 102 85 80 85 55V22L50 8Z" fill="url(#shield-grad)" filter="url(#shield-glow)"/>
+                                            <path d="M50 14L21 26V54C21 76 34 96 50 103C66 96 79 76 79 54V26L50 14Z" stroke="rgba(255,255,255,0.7)" stroke-width="2"/>
+                                            <path d="M36 57L46 67L64 45" stroke="white" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                    </div>
+                                    <div class="floating-orb orb-1"></div>
+                                    <div class="floating-orb orb-2"></div>
+                                    <div class="floating-orb orb-3"></div>
+                                </div>
+
+                                <div class="handwritten-motto">
+                                    <span>A Safer Internet Together.</span>
+                                    <em>Security for a better tomorrow</em>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- System Architecture & Capabilities Grid -->
+                    <section class="capabilities-section">
+                        <div class="section-title-wrap">
+                            <span class="pill-label">Multi-Layer Defense</span>
+                            <h2>How PhishGuard Protects You</h2>
+                            <p>Combining Machine Learning pattern recognition with real-time cybersecurity telemetry.</p>
+                        </div>
+
+                        <div class="capabilities-grid">
+                            <div class="cap-card">
+                                <div class="cap-icon-box blue">
+                                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+                                    </svg>
+                                </div>
+                                <h3>35 Advanced Features</h3>
+                                <p>Analyzes Shannon entropy, lexical structure, URL shorteners, and suspicious TLD patterns to flag deceptive domains.</p>
+                            </div>
+
+                            <div class="cap-card">
+                                <div class="cap-icon-box green">
+                                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+                                        <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+                                    </svg>
+                                </div>
+                                <h3>Institutional Verification</h3>
+                                <p>Government-restricted educational and state domains (<code>.edu.in</code>, <code>.ac.in</code>, <code>.gov.in</code>) are automatically verified and protected.</p>
+                            </div>
+
+                            <div class="cap-card">
+                                <div class="cap-icon-box purple">
+                                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <circle cx="12" cy="12" r="10"/>
+                                        <path d="M12 6v6l4 2"/>
+                                    </svg>
+                                </div>
+                                <h3>WHOIS &amp; Safe Browsing</h3>
+                                <p>Zero-day defense checking domain registration age and Google Safe Browsing threat feeds before threats spread.</p>
+                            </div>
+
+                            <div class="cap-card">
+                                <div class="cap-icon-box orange">
+                                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/>
+                                    </svg>
+                                </div>
+                                <h3>Adaptive Learning</h3>
+                                <p>Self-learning engine incorporating user confirmations into the adaptive whitelist and periodic background retrains.</p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Overview KPIs -->
+                    <section class="kpi-grid">
+                        <div class="kpi-card">
+                            <div class="kpi-info">
+                                <span class="kpi-num" id="kpi-home-scans">12</span>
+                                <span class="kpi-title">Total Scans</span>
+                            </div>
+                            <div class="kpi-icon-bubble blue-bubble">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <line x1="18" y1="20" x2="18" y2="10"/>
+                                    <line x1="12" y1="20" x2="12" y2="4"/>
+                                    <line x1="6" y1="20" x2="6" y2="14"/>
+                                </svg>
+                            </div>
+                        </div>
+
+                        <div class="kpi-card">
+                            <div class="kpi-info">
+                                <span class="kpi-num text-danger" id="kpi-home-threats">0</span>
+                                <span class="kpi-title">Threats Blocked</span>
+                            </div>
+                            <div class="kpi-icon-bubble red-bubble">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                                    <line x1="12" y1="8" x2="12" y2="12"/>
+                                    <line x1="12" y1="16" x2="12.01" y2="16"/>
+                                </svg>
+                            </div>
+                        </div>
+
+                        <div class="kpi-card">
+                            <div class="kpi-info">
+                                <span class="kpi-num" id="kpi-home-rate">96.5%</span>
+                                <span class="kpi-title">Detection Accuracy</span>
+                            </div>
+                            <div class="kpi-icon-bubble orange-bubble">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <circle cx="12" cy="12" r="6"/>
+                                    <circle cx="12" cy="12" r="2"/>
+                                </svg>
+                            </div>
+                        </div>
+
+                        <div class="kpi-card">
+                            <div class="kpi-info">
+                                <span class="kpi-num" id="kpi-home-time">&lt; 2s</span>
+                                <span class="kpi-title">Avg. Analysis Time</span>
+                            </div>
+                            <div class="kpi-icon-bubble purple-bubble">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+                                </svg>
+                            </div>
+                        </div>
+                    </section>
                 </div>
-                <h3>Privacy Focused</h3>
-                <p>Your data never leaves your browser. All analysis happens client-side with zero data collection or external API calls.</p>
-            </div>
-            <div class="feature-card fade-in">
-                <div class="feature-icon">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="10"/>
-                        <polyline points="12 6 12 12 16 14"/>
-                    </svg>
+
+                <!-- ==============================================
+                     VIEW 2: SCAN (URL Scanner + Status + Tips)
+                     ============================================== -->
+                <div class="view-section" id="view-scan">
+                    <!-- Scanner Card (URL detection only) -->
+                    <section class="scanner-glass-card">
+                        <div class="scanner-header-row">
+                            <div>
+                                <h2 class="scanner-card-title">Live URL Threat Scanner</h2>
+                                <p class="scanner-card-subtitle">Paste any URL to analyze phishing probability, brand impersonation, and domain legitimacy.</p>
+                            </div>
+                            <span class="scanner-status-chip">
+                                <span class="pulse-dot"></span> AI Engine Active
+                            </span>
+                        </div>
+
+                        <!-- Single URL Input Bar (No Email, Message, File buttons) -->
+                        <div class="scanner-input-wrapper">
+                            <div class="input-icon-slot">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
+                                    <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
+                                </svg>
+                            </div>
+                            <input 
+                                type="text" 
+                                id="scanner-input" 
+                                class="scanner-input-field" 
+                                placeholder="Enter a URL to analyze (e.g. https://example.com)"
+                                autocomplete="off"
+                                spellcheck="false"
+                            >
+                            <button id="analyze-btn" class="analyze-gradient-btn">
+                                <span class="btn-spinner"></span>
+                                <span class="btn-content">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                        <circle cx="11" cy="11" r="8"/>
+                                        <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                                    </svg>
+                                    <span>Analyze Threat</span>
+                                </span>
+                            </button>
+                        </div>
+
+                        <!-- Helper & Counter Row -->
+                        <div class="scanner-subtext-row">
+                            <span class="helper-text">Inspects 35 URL signals, brand spoofing, WHOIS domain age, and security registries.</span>
+                            <span class="char-count" id="char-count">0/500 characters</span>
+                        </div>
+
+                        <!-- Dynamic Live Result Card -->
+                        <div id="results-card" class="results-card">
+                            <div class="results-top-bar">
+                                <div class="results-status-badge" id="results-status-badge">
+                                    <span class="badge-pulse"></span>
+                                    <span id="results-verdict-text">Safe</span>
+                                </div>
+                                <span class="results-timestamp" id="results-timestamp">Just now</span>
+                            </div>
+
+                            <div class="results-body">
+                                <div class="results-meter-box">
+                                    <div class="meter-label">Risk Probability</div>
+                                    <div class="meter-value" id="results-score-value">0%</div>
+                                    <div class="meter-track">
+                                        <div class="meter-fill" id="results-meter-fill" style="width: 0%"></div>
+                                    </div>
+                                    <div class="meter-caption" id="results-risk-level">Risk Level: Low</div>
+                                </div>
+
+                                <div class="results-details-box">
+                                    <h4 class="details-heading">Threat Summary</h4>
+                                    <p class="details-summary" id="results-summary-text">No phishing indicators detected.</p>
+
+                                    <h4 class="details-heading">Security Telemetry</h4>
+                                    <ul class="details-indicators" id="results-indicators-list">
+                                        <li>URL verified against security whitelist</li>
+                                    </ul>
+
+                                    <div class="egress-telemetry-box" id="results-egress-container" style="display:none; margin-top: 14px; padding: 12px 14px; background: rgba(15, 23, 42, 0.65); border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.08); backdrop-filter: blur(10px);">
+                                        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px;">
+                                            <span style="font-size: 12px; font-weight: 700; color: #94a3b8; display: flex; align-items: center; gap: 6px;">
+                                                <span>🌐</span> Dynamic Egress & Network Chunking
+                                            </span>
+                                            <span id="results-egress-badge" style="font-size: 11px; padding: 2px 8px; border-radius: 12px; font-weight: 600; background: rgba(34, 197, 94, 0.2); color: #4ade80;">Safe</span>
+                                        </div>
+                                        <div id="results-egress-info" style="font-size: 12px; color: #cbd5e1; line-height: 1.4;">Payload chunk analysis verified.</div>
+                                    </div>
+
+                                    <div class="results-feedback-row" id="results-feedback-box">
+                                        <span class="feedback-question">Is this verdict correct?</span>
+                                        <div class="feedback-actions">
+                                            <button class="feedback-pill-btn correct" id="fb-confirm-btn">✓ Correct</button>
+                                            <button class="feedback-pill-btn wrong" id="fb-dispute-btn">✕ Report Incorrect</button>
+                                        </div>
+                                        <span class="feedback-thanks" id="fb-thanks-msg">Thank you! This feedback trains the AI.</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Paired Security Status & Security Tips Row -->
+                    <div class="scan-widgets-grid">
+                        <!-- Security Status Card -->
+                        <div class="glass-widget security-status-widget">
+                            <div class="widget-header-row">
+                                <div class="status-title-group">
+                                    <span class="status-indicator-dot"></span>
+                                    <h3>Your Security Status</h3>
+                                </div>
+                                <span class="badge-protected-pill">
+                                    <span class="pill-dot"></span> Protected
+                                </span>
+                            </div>
+                            <p class="status-subtext">Keep scanning links to stay protected against zero-day threats.</p>
+
+                            <div class="security-gauge-wrap">
+                                <svg class="security-gauge-svg" viewBox="0 0 140 140">
+                                    <defs>
+                                        <linearGradient id="gauge-gradient" x1="0" y1="0" x2="1" y2="1">
+                                            <stop stop-color="#10B981"/>
+                                            <stop offset="1" stop-color="#06B6D4"/>
+                                        </linearGradient>
+                                    </defs>
+                                    <circle class="gauge-track" cx="70" cy="70" r="54"/>
+                                    <circle class="gauge-fill" id="gauge-progress-circle" cx="70" cy="70" r="54"/>
+                                </svg>
+                                <div class="gauge-center-content">
+                                    <span class="gauge-big-pct" id="gauge-score-pct">100%</span>
+                                    <span class="gauge-tag" id="gauge-score-tag">Safe</span>
+                                </div>
+                            </div>
+
+                            <div class="security-stat-row">
+                                <div class="sec-stat-col">
+                                    <span class="sec-stat-val" id="status-total-count">12</span>
+                                    <span class="sec-stat-lbl">Total Scans</span>
+                                </div>
+                                <div class="sec-stat-col">
+                                    <span class="sec-stat-val" id="status-threat-count">0</span>
+                                    <span class="sec-stat-lbl">Threats Found</span>
+                                </div>
+                                <div class="sec-stat-col">
+                                    <span class="sec-stat-val text-success" id="status-safe-count">12</span>
+                                    <span class="sec-stat-lbl">Safe Links</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Security Tips Carousel Card -->
+                        <div class="glass-widget security-tips-widget">
+                            <div class="widget-header-row">
+                                <div class="tips-title-group">
+                                    <span class="tips-lightbulb">💡</span>
+                                    <h3>Security Tips</h3>
+                                </div>
+                                <div class="tips-nav-controls">
+                                    <span class="tips-counter" id="tips-counter">1/4</span>
+                                    <button class="tips-arrow" id="tips-prev" title="Previous tip">‹</button>
+                                    <button class="tips-arrow" id="tips-next" title="Next tip">›</button>
+                                </div>
+                            </div>
+
+                            <div class="tip-card-inner">
+                                <div class="tip-content-left">
+                                    <h4 class="tip-title" id="tip-title">Check the URL carefully</h4>
+                                    <p class="tip-body" id="tip-body">Look for misspellings, unusual domains, and suspicious subdomains before clicking.</p>
+                                </div>
+                                <div class="tip-icon-bubble">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
+                                        <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
+                                    </svg>
+                                </div>
+                            </div>
+
+                            <div class="tips-dots-row" id="tips-dots">
+                                <span class="tip-dot active" data-index="0"></span>
+                                <span class="tip-dot" data-index="1"></span>
+                                <span class="tip-dot" data-index="2"></span>
+                                <span class="tip-dot" data-index="3"></span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <h3>Fast Results</h3>
-                <p>Optimized scanning engine delivers comprehensive threat reports in under 2 seconds with detailed risk breakdowns.</p>
-            </div>
-        </div>
-    </section>
 
-    <!-- How It Works -->
-    <section id="how-it-works" class="section">
-        <div class="section-header fade-in">
-            <span class="section-label">How It Works</span>
-            <h2 class="section-title">Three Simple Steps</h2>
-            <p class="section-subtitle">
-                Protect yourself from phishing attacks in seconds with our streamlined workflow.
-            </p>
-        </div>
-        <div class="steps-container">
-            <div class="step-card fade-in">
-                <div class="step-number">1</div>
-                <h3>Paste Content</h3>
-                <p>Copy and paste suspicious emails, links, or messages into the scanner.</p>
-            </div>
-            <div class="step-connector fade-in">&#8594;</div>
-            <div class="step-card fade-in">
-                <div class="step-number">2</div>
-                <h3>Analyze</h3>
-                <p>Our AI engine scans for phishing indicators, malicious URLs, and spoofing attempts.</p>
-            </div>
-            <div class="step-connector fade-in">&#8594;</div>
-            <div class="step-card fade-in">
-                <div class="step-number">3</div>
-                <h3>View Results</h3>
-                <p>Get a detailed security report with risk score, threat summary, and recommended actions.</p>
-            </div>
-        </div>
-    </section>
+                <!-- ==============================================
+                     VIEW 3: HISTORY (Full Scan History Log)
+                     ============================================== -->
+                <div class="view-section" id="view-history">
+                    <section class="glass-widget history-manager-card">
+                        <div class="history-top-row">
+                            <div>
+                                <h2>Scan History</h2>
+                                <p class="history-subtext">Review all previously scanned URLs, risk classifications, and verdicts.</p>
+                            </div>
+                            <button class="clear-history-btn" id="clear-history-btn">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="3 6 5 6 21 6"/>
+                                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+                                </svg>
+                                <span>Clear History</span>
+                            </button>
+                        </div>
 
-    <!-- Contact / CTA -->
-    <section id="contact" class="section">
-        <div class="section-header fade-in">
-            <span class="section-label">Get Started</span>
-            <h2 class="section-title">Secure Your Organization</h2>
-            <p class="section-subtitle">
-                Join thousands of security professionals using PhishGuard to protect their teams.
-            </p>
-        </div>
-        <div style="text-align: center; margin-top: 2rem;">
-            <a href="login.html" class="nav-login-btn" style="padding: 1rem 2.5rem; font-size: 1rem; display: inline-flex;">
-                Access Dashboard
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-left: 8px;">
-                    <path d="M5 12h14"/>
-                    <path d="m12 5 7 7-7 7"/>
-                </svg>
-            </a>
-        </div>
-    </section>
+                        <!-- Filter & Search Controls -->
+                        <div class="history-filter-bar">
+                            <div class="history-search-input">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="11" cy="11" r="8"/>
+                                    <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                                </svg>
+                                <input type="text" id="history-search-box" placeholder="Filter scans by domain or URL...">
+                            </div>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-brand">
-            <div class="shield-icon">
-                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/>
-                </svg>
+                            <div class="history-filter-pills">
+                                <button class="filter-pill active" data-filter="all">All</button>
+                                <button class="filter-pill" data-filter="safe">Safe Only</button>
+                                <button class="filter-pill" data-filter="phishing">Phishing Threats</button>
+                            </div>
+                        </div>
+
+                        <!-- Full History Table / List -->
+                        <div class="history-list-container" id="full-history-list">
+                            <!-- Populated dynamically by script.js -->
+                        </div>
+                    </section>
+                </div>
+
+                <!-- ==============================================
+                     VIEW 4: REPORTS (Threat Intelligence & Analytics)
+                     ============================================== -->
+                <div class="view-section" id="view-reports">
+                    <section class="reports-overview-section">
+                        <div class="section-title-wrap">
+                            <span class="pill-label">Threat Telemetry</span>
+                            <h2>Threat Intelligence &amp; Analytics</h2>
+                            <p>Aggregated detection telemetry and machine learning model evaluation metrics.</p>
+                        </div>
+
+                        <div class="reports-grid">
+                            <!-- Threat Types Donut Card -->
+                            <div class="glass-widget">
+                                <div class="widget-header">
+                                    <h3>Threat Types Distribution</h3>
+                                </div>
+                                <div class="threat-donut-content">
+                                    <div class="donut-chart-container">
+                                        <svg class="donut-chart-svg" viewBox="0 0 120 120">
+                                            <circle class="donut-bg" cx="60" cy="60" r="48"/>
+                                            <circle class="donut-segment segment-phish" id="reports-donut-segment" cx="60" cy="60" r="48"/>
+                                        </svg>
+                                        <div class="donut-center-text">
+                                            <span class="donut-big-num" id="reports-threat-count">0</span>
+                                            <span class="donut-sub-text">Threats</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="donut-legend">
+                                        <div class="legend-item">
+                                            <span class="legend-dot dot-phishing"></span>
+                                            <span class="legend-name">Phishing Kits</span>
+                                            <span class="legend-val" id="rep-pct-phish">0%</span>
+                                        </div>
+                                        <div class="legend-item">
+                                            <span class="legend-dot dot-malware"></span>
+                                            <span class="legend-name">Brand Spoofs</span>
+                                            <span class="legend-val" id="rep-pct-spoof">0%</span>
+                                        </div>
+                                        <div class="legend-item">
+                                            <span class="legend-dot dot-spam"></span>
+                                            <span class="legend-name">Suspicious TLDs</span>
+                                            <span class="legend-val" id="rep-pct-tld">0%</span>
+                                        </div>
+                                        <div class="legend-item">
+                                            <span class="legend-dot dot-scam"></span>
+                                            <span class="legend-name">Fresh Domains</span>
+                                            <span class="legend-val" id="rep-pct-age">0%</span>
+                                        </div>
+                                        <div class="legend-item">
+                                            <span class="legend-dot dot-suspicious"></span>
+                                            <span class="legend-name">Suspicious Paths</span>
+                                            <span class="legend-val" id="rep-pct-path">0%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Model Benchmark Card -->
+                            <div class="glass-widget">
+                                <div class="widget-header">
+                                    <h3>XGBoost Model Benchmarks</h3>
+                                </div>
+                                <div class="benchmark-list">
+                                    <div class="benchmark-row">
+                                        <span class="bench-label">Overall Accuracy</span>
+                                        <div class="bench-bar-track"><div class="bench-bar-fill" style="width: 96.5%"></div></div>
+                                        <span class="bench-val">96.51%</span>
+                                    </div>
+                                    <div class="benchmark-row">
+                                        <span class="bench-label">ROC-AUC Score</span>
+                                        <div class="bench-bar-track"><div class="bench-bar-fill" style="width: 99.2%"></div></div>
+                                        <span class="bench-val">0.9927</span>
+                                    </div>
+                                    <div class="benchmark-row">
+                                        <span class="bench-label">Phishing Precision</span>
+                                        <div class="bench-bar-track"><div class="bench-bar-fill" style="width: 96.3%"></div></div>
+                                        <span class="bench-val">96.31%</span>
+                                    </div>
+                                    <div class="benchmark-row">
+                                        <span class="bench-label">Phishing Recall</span>
+                                        <div class="bench-bar-track"><div class="bench-bar-fill" style="width: 93.8%"></div></div>
+                                        <span class="bench-val">93.78%</span>
+                                    </div>
+                                    <div class="benchmark-row">
+                                        <span class="bench-label">Dataset Samples</span>
+                                        <div class="bench-bar-track"><div class="bench-bar-fill" style="width: 100%"></div></div>
+                                        <span class="bench-val">405,840 URLs</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+
+                <!-- ==============================================
+                     VIEW 5: SETTINGS (Configuration & Preferences)
+                     ============================================== -->
+                <div class="view-section" id="view-settings">
+                    <section class="glass-widget settings-container-card">
+                        <div class="widget-header">
+                            <div>
+                                <h2>System &amp; Security Settings</h2>
+                                <p class="settings-subtext">Configure threat sensitivity thresholds and real-time detection telemetry.</p>
+                            </div>
+                        </div>
+
+                        <div class="settings-group">
+                            <h3 class="settings-group-title">Detection Thresholds</h3>
+                            <div class="settings-control-row">
+                                <div>
+                                    <label class="setting-label" for="threshold-slider">Phishing Sensitivity Threshold</label>
+                                    <p class="setting-desc">Probability cutoff above which an unwhitelisted URL is classified as Phishing.</p>
+                                </div>
+                                <div class="threshold-slider-wrap">
+                                    <input type="range" id="threshold-slider" min="20" max="80" value="40" step="5">
+                                    <span class="threshold-display" id="threshold-display">40%</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="settings-group">
+                            <h3 class="settings-group-title">Threat Telemetry Layers</h3>
+                            <div class="settings-toggle-row">
+                                <div>
+                                    <div class="setting-label">Institutional Domain Protection</div>
+                                    <div class="setting-desc">Auto-verify accredited academic (<code>.edu.in</code>, <code>.ac.in</code>) and government domains.</div>
+                                </div>
+                                <label class="switch">
+                                    <input type="checkbox" id="setting-inst-toggle" checked disabled>
+                                    <span class="slider round"></span>
+                                </label>
+                            </div>
+
+                            <div class="settings-toggle-row">
+                                <div>
+                                    <div class="setting-label">WHOIS Domain Age Penalty</div>
+                                    <div class="setting-desc">Add extra risk penalty for domains registered within the last 30 days.</div>
+                                </div>
+                                <label class="switch">
+                                    <input type="checkbox" id="setting-whois-toggle" checked>
+                                    <span class="slider round"></span>
+                                </label>
+                            </div>
+
+                            <div class="settings-toggle-row">
+                                <div>
+                                    <div class="setting-label">Adaptive Whitelist Learning</div>
+                                    <div class="setting-desc">Allow user confirmations to promote verified safe domains in real time.</div>
+                                </div>
+                                <label class="switch">
+                                    <input type="checkbox" id="setting-adaptive-toggle" checked>
+                                    <span class="slider round"></span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="settings-group">
+                            <h3 class="settings-group-title">Appearance &amp; Data</h3>
+                            <div class="settings-toggle-row">
+                                <div>
+                                    <div class="setting-label">Interface Theme</div>
+                                    <div class="setting-desc">Switch between Dark and Light visual mode.</div>
+                                </div>
+                                <button class="theme-switch-btn" id="settings-theme-btn">Toggle Theme</button>
+                            </div>
+
+                            <div class="settings-toggle-row">
+                                <div>
+                                    <div class="setting-label">Local Cache &amp; History</div>
+                                    <div class="setting-desc">Reset all stored scans and restore initial baseline data.</div>
+                                </div>
+                                <button class="reset-data-btn" id="settings-reset-data">Reset Local Scans</button>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+
+                <!-- ==============================================
+                     BOTTOM PROMO BANNER (Visible across all views)
+                     ============================================== -->
+                <div class="promo-upgrade-card">
+                    <div class="promo-left">
+                        <div class="promo-icon-circle">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                            </svg>
+                        </div>
+                        <div class="promo-text-wrap">
+                            <h4>Upgrade to Pro</h4>
+                            <p>Get advanced threat analysis, detailed reports, and real-time protection.</p>
+                        </div>
+                    </div>
+
+                    <div class="promo-right">
+                        <button class="promo-cta-btn">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M5 16L3 5l5.5 5L12 4l3.5 6L21 5l-2 11H5zm14 3c0 .6-.4 1-1 1H6c-.6 0-1-.4-1-1v-1h14v1z"/>
+                            </svg>
+                            <span>Upgrade Now →</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Handwritten Footer Tagline -->
+                <div class="handwritten-footer">
+                    <span>Safer People, Stronger Internet</span>
+                </div>
             </div>
-            PhishGuard
-        </div>
-        <p>Enterprise Phishing Detection Platform. All rights reserved.</p>
-    </footer>
-
-    <script src="/static/script.js"></script>
+        </main>
+    </div>
 </body>
 </html>

@@ -1,96 +1,413 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - PhishGuard</title>
-    <meta name="description" content="Secure login to PhishGuard dashboard.">
-    <link rel="stylesheet" href="style.css">
+    <title>Sign In - PhishGuard AI Cyber Threat Intelligence</title>
+    <meta name="description" content="Secure access to PhishGuard AI cybersecurity console, threat detection telemetry, and browser chunking logs.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/style.css?v=4.2">
+    <link rel="stylesheet" href="/assets/style.css?v=4.2">
 </head>
-<body>
+<body class="auth-body">
+    <!-- Ambient Luminous Background Orbs (Exact Home UI) -->
+    <div class="ambient-glow glow-1"></div>
+    <div class="ambient-glow glow-2"></div>
+    <div class="ambient-glow glow-3"></div>
+    <div class="ambient-glow glow-4"></div>
 
-    <!-- Navbar -->
-    <nav class="navbar">
-        <a href="index.html" class="nav-brand">
-            <div class="shield-icon">
-                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/>
-                </svg>
-            </div>
-            PhishGuard
-        </a>
-        <ul class="nav-links">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="index.html#features">Features</a></li>
-            <li><a href="index.html#how-it-works">About</a></li>
-            <li><a href="index.html#contact">Contact</a></li>
-            <li><a href="login.html" class="nav-login-btn">Login</a></li>
-        </ul>
-        <button class="mobile-menu-btn">&#9776;</button>
-    </nav>
-
-    <!-- Login Page -->
-    <div class="login-page">
-        <div class="login-card">
-            <div class="login-header">
-                <div class="shield-icon">
-                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/>
+    <div class="auth-viewport">
+        <!-- Top Auth Navbar -->
+        <header class="auth-top-header">
+            <a href="/" class="brand-logo" title="PhishGuard AI Home">
+                <div class="logo-shield">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2L4 5V11.5C4 16.5 7.5 21 12 22.5C16.5 21 20 16.5 20 11.5V5L12 2Z" fill="url(#brand-shield-grad)"/>
+                        <path d="M9 12L11 14L15 10" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <defs>
+                            <linearGradient id="brand-shield-grad" x1="4" y1="2" x2="20" y2="22.5" gradientUnits="userSpaceOnUse">
+                                <stop stop-color="#3B82F6"/>
+                                <stop offset="1" stop-color="#6366F1"/>
+                            </linearGradient>
+                        </defs>
                     </svg>
                 </div>
-                <h2>Welcome Back</h2>
-                <p>Sign in to access your security dashboard</p>
+                <span class="brand-name">PhishGuard <span class="brand-ai-badge">AI</span></span>
+            </a>
+
+            <div class="auth-header-actions">
+                <a href="/" class="auth-nav-link">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="19" y1="12" x2="5" y2="12"/>
+                        <polyline points="12 19 5 12 12 5"/>
+                    </svg>
+                    <span>Back to Platform</span>
+                </a>
+
+                <!-- Theme Toggle Button -->
+                <button class="theme-toggle-btn" id="theme-toggle" title="Toggle Light/Dark mode" aria-label="Toggle theme">
+                    <svg class="sun-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="5"/>
+                        <line x1="12" y1="1" x2="12" y2="3"/>
+                        <line x1="12" y1="21" x2="12" y2="23"/>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                        <line x1="1" y1="12" x2="3" y2="12"/>
+                        <line x1="21" y1="12" x2="23" y2="12"/>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+                    </svg>
+                    <svg class="moon-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                    </svg>
+                </button>
+            </div>
+        </header>
+
+        <!-- Main Auth Showcase Grid -->
+        <main class="auth-main-container">
+            <!-- Left Side: Hero Value Props & Cyber Security Showcase -->
+            <div class="auth-hero-showcase">
+                <div class="floating-pill-top">
+                    <span class="dot-pulse"></span>
+                    <span>Threat Defense Console &bull; v4.2 Pro</span>
+                </div>
+
+                <h1 class="auth-hero-title">
+                    Secure Access to<br>
+                    <span class="gradient-text">Cyber Threat</span><br>
+                    Intelligence
+                </h1>
+
+                <p class="auth-hero-desc">
+                    Sign in to inspect live telemetry, zero-day threat evaluations, URL structural heuristics, and real-time browser network chunking streams.
+                </p>
+
+                <!-- Value Proposition Cards -->
+                <div class="auth-features-list">
+                    <div class="auth-feature-item">
+                        <div class="auth-feature-icon blue">🛡️</div>
+                        <div class="auth-feature-text">
+                            <h4>Multi-Tier Defense Cascade</h4>
+                            <p>XGBoost ML engine + 30 structural heuristics benchmarked across 405k verified samples.</p>
+                        </div>
+                    </div>
+
+                    <div class="auth-feature-item">
+                        <div class="auth-feature-icon purple">⚡</div>
+                        <div class="auth-feature-text">
+                            <h4>Real-Time Network Chunking</h4>
+                            <p>Client-side DOM stream & form egress guard blocking credential exfiltration in 0.08 ms.</p>
+                        </div>
+                    </div>
+
+                    <div class="auth-feature-item">
+                        <div class="auth-feature-icon green">🎯</div>
+                        <div class="auth-feature-text">
+                            <h4>97.2% Multi-Tier Recall</h4>
+                            <p>Empirically verified zero-day protection with sub-millisecond classification overhead.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Trust Badges -->
+                <div class="auth-trust-footer">
+                    <span class="trust-badge">🔒 256-Bit HMAC Tokens</span>
+                    <span class="trust-badge">🛡️ Zero Data Leakage</span>
+                    <span class="trust-badge">⚡ 1.2ms Local Engine</span>
+                </div>
             </div>
 
-            <form id="login-form">
-                <div class="form-group">
-                    <label for="login-email">Email Address</label>
-                    <input 
-                        type="email" 
-                        id="login-email" 
-                        class="form-input" 
-                        placeholder="you@company.com"
-                        autocomplete="email"
-                        required
-                    >
-                    <span class="validation-msg"></span>
-                </div>
-
-                <div class="form-group">
-                    <label for="login-password">Password</label>
-                    <div class="password-wrapper">
-                        <input 
-                            type="password" 
-                            id="login-password" 
-                            class="form-input" 
-                            placeholder="Enter your password"
-                            autocomplete="current-password"
-                            required
-                        >
-                        <button type="button" id="toggle-password" class="toggle-password">Show</button>
+            <!-- Right Side: Glassmorphic Login Card -->
+            <div class="auth-card-wrapper">
+                <div class="auth-glass-card">
+                    <div class="auth-card-header">
+                        <div class="auth-icon-badge">
+                            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 2L4 5V11.5C4 16.5 7.5 21 12 22.5C16.5 21 20 16.5 20 11.5V5L12 2Z" fill="url(#card-shield-grad)"/>
+                                <path d="M9 12L11 14L15 10" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <defs>
+                                    <linearGradient id="card-shield-grad" x1="4" y1="2" x2="20" y2="22.5" gradientUnits="userSpaceOnUse">
+                                        <stop stop-color="#3B82F6"/>
+                                        <stop offset="1" stop-color="#8B5CF6"/>
+                                    </linearGradient>
+                                </defs>
+                            </svg>
+                        </div>
+                        <h2>Console Sign In</h2>
+                        <p>Authenticate with your security administrator credentials</p>
                     </div>
-                    <span class="validation-msg"></span>
+
+                    <!-- One-Click Demo Login Banner -->
+                    <div class="demo-login-box">
+                        <div class="demo-box-content">
+                            <div class="demo-pill-title">
+                                <span class="demo-badge">QUICK ACCESS</span>
+                                <span>Demo Security Admin</span>
+                            </div>
+                            <div class="demo-creds-preview">
+                                <code>admin@phishguard.ai</code> &bull; <code>PhishGuard@123</code>
+                            </div>
+                        </div>
+                        <button type="button" id="quick-demo-btn" class="quick-demo-btn" title="Auto-fill credentials and sign in instantly">
+                            <span>⚡ One-Click Login</span>
+                        </button>
+                    </div>
+
+                    <div class="auth-divider">
+                        <span>OR SIGN IN MANUALLY</span>
+                    </div>
+
+                    <!-- Dynamic Feedback Banner -->
+                    <div id="auth-alert" class="auth-alert" style="display: none;">
+                        <span id="alert-icon" class="alert-icon"></span>
+                        <span id="alert-msg" class="alert-msg"></span>
+                    </div>
+
+                    <!-- Login Form -->
+                    <form id="login-form" class="auth-form" novalidate>
+                        <div class="form-field-group">
+                            <label for="login-email" class="form-label">
+                                <span>Security Email / User ID</span>
+                            </label>
+                            <div class="input-glow-wrapper">
+                                <span class="input-icon">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                                        <polyline points="22,6 12,13 2,6"/>
+                                    </svg>
+                                </span>
+                                <input 
+                                    type="email" 
+                                    id="login-email" 
+                                    class="cyber-input" 
+                                    placeholder="admin@phishguard.ai" 
+                                    autocomplete="email" 
+                                    required
+                                >
+                            </div>
+                        </div>
+
+                        <div class="form-field-group">
+                            <div class="form-label-row">
+                                <label for="login-password" class="form-label">
+                                    <span>Access Password</span>
+                                </label>
+                                <a href="#" id="forgot-pass-btn" class="forgot-link">Demo Creds</a>
+                            </div>
+                            <div class="input-glow-wrapper">
+                                <span class="input-icon">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                                        <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                                    </svg>
+                                </span>
+                                <input 
+                                    type="password" 
+                                    id="login-password" 
+                                    class="cyber-input" 
+                                    placeholder="••••••••••••" 
+                                    autocomplete="current-password" 
+                                    required
+                                >
+                                <button type="button" id="toggle-password" class="password-toggle-btn" title="Toggle password visibility">
+                                    <svg class="eye-open" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                                        <circle cx="12" cy="12" r="3"/>
+                                    </svg>
+                                    <svg class="eye-closed" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: none;">
+                                        <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/>
+                                        <line x1="1" y1="1" x2="23" y2="23"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="form-aux-row">
+                            <label class="custom-checkbox">
+                                <input type="checkbox" id="remember-me" checked>
+                                <span class="checkbox-box"></span>
+                                <span class="checkbox-label">Keep session authenticated</span>
+                            </label>
+                        </div>
+
+                        <button type="submit" id="submit-login-btn" class="auth-submit-btn">
+                            <span id="btn-text" class="btn-text">Authenticate & Access Console</span>
+                            <span id="btn-spinner" class="btn-spinner" style="display: none;"></span>
+                            <svg id="btn-arrow" class="btn-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                <line x1="5" y1="12" x2="19" y2="12"/>
+                                <polyline points="12 5 19 12 12 19"/>
+                            </svg>
+                        </button>
+                    </form>
+
+                    <div class="auth-card-footer">
+                        <p class="auth-compliance-text">
+                            <span>🔒 Secured with 256-bit HMAC Token Architecture</span>
+                        </p>
+                    </div>
                 </div>
-
-                <div class="form-options">
-                    <label class="remember-me">
-                        <input type="checkbox" id="remember-me">
-                        Remember Me
-                    </label>
-                    <a href="#" class="forgot-password">Forgot Password?</a>
-                </div>
-
-                <button type="submit" class="login-btn">
-                    Sign In
-                </button>
-            </form>
-
-            <p style="text-align: center; margin-top: 1.5rem; color: var(--text-muted); font-size: 0.85rem;">
-                Demo: Use any valid email and password (8+ chars)
-            </p>
-        </div>
+            </div>
+        </main>
     </div>
 
-    <script src="script.js"></script>
+    <!-- Login Authentication Controller Script -->
+    <script>
+        (function() {
+            // Theme Sync
+            const themeToggleBtn = document.getElementById('theme-toggle');
+            const root = document.documentElement;
+            const savedTheme = localStorage.getItem('phishguard_theme') || 'dark';
+            root.setAttribute('data-theme', savedTheme);
+
+            if (themeToggleBtn) {
+                themeToggleBtn.addEventListener('click', () => {
+                    const current = root.getAttribute('data-theme');
+                    const next = current === 'dark' ? 'light' : 'dark';
+                    root.setAttribute('data-theme', next);
+                    localStorage.setItem('phishguard_theme', next);
+                });
+            }
+
+            // Password Toggle
+            const passwordInput = document.getElementById('login-password');
+            const togglePasswordBtn = document.getElementById('toggle-password');
+            if (togglePasswordBtn && passwordInput) {
+                togglePasswordBtn.addEventListener('click', () => {
+                    const isPass = passwordInput.type === 'password';
+                    passwordInput.type = isPass ? 'text' : 'password';
+                    const eyeOpen = togglePasswordBtn.querySelector('.eye-open');
+                    const eyeClosed = togglePasswordBtn.querySelector('.eye-closed');
+                    if (eyeOpen && eyeClosed) {
+                        eyeOpen.style.display = isPass ? 'none' : 'block';
+                        eyeClosed.style.display = isPass ? 'block' : 'none';
+                    }
+                });
+            }
+
+            // Elements
+            const form = document.getElementById('login-form');
+            const emailInput = document.getElementById('login-email');
+            const submitBtn = document.getElementById('submit-login-btn');
+            const btnText = document.getElementById('btn-text');
+            const btnSpinner = document.getElementById('btn-spinner');
+            const btnArrow = document.getElementById('btn-arrow');
+            const alertBox = document.getElementById('auth-alert');
+            const alertMsg = document.getElementById('alert-msg');
+            const quickDemoBtn = document.getElementById('quick-demo-btn');
+            const forgotPassBtn = document.getElementById('forgot-pass-btn');
+
+            function showAlert(message, type) {
+                if (!alertBox || !alertMsg) return;
+                alertBox.className = 'auth-alert ' + type;
+                alertMsg.textContent = message;
+                alertBox.style.display = 'flex';
+            }
+
+            function hideAlert() {
+                if (alertBox) alertBox.style.display = 'none';
+            }
+
+            function setLoading(loading) {
+                if (!submitBtn) return;
+                submitBtn.disabled = loading;
+                if (btnText) btnText.textContent = loading ? 'Verifying Credentials...' : 'Authenticate & Access Console';
+                if (btnSpinner) btnSpinner.style.display = loading ? 'inline-block' : 'none';
+                if (btnArrow) btnArrow.style.display = loading ? 'none' : 'inline-block';
+            }
+
+            async function performLogin(email, password) {
+                hideAlert();
+                setLoading(true);
+
+                try {
+                    const response = await fetch('/auth/login', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json'
+                        },
+                        body: JSON.stringify({ email: email.trim(), password: password.trim() })
+                    });
+
+                    const data = await response.json().catch(() => ({}));
+
+                    if (response.ok && data.success) {
+                        showAlert('✓ Identity verified! Launching security console...', 'success');
+                        
+                        // Save authentication session
+                        localStorage.setItem('phishguard_auth', 'true');
+                        localStorage.setItem('phishguard_token', data.token);
+                        localStorage.setItem('phishguard_user', JSON.stringify(data.user || {
+                            email: email,
+                            name: 'Security Admin',
+                            role: 'Administrator',
+                            plan: 'Enterprise Pro'
+                        }));
+                        localStorage.setItem('phishguard_login_time', new Date().toISOString());
+
+                        // Redirect to dashboard or return destination
+                        const params = new URLSearchParams(window.location.search);
+                        const targetUrl = params.get('redirect') || '/dashboard';
+
+                        setTimeout(() => {
+                            window.location.href = targetUrl;
+                        }, 600);
+                    } else {
+                        const errMsg = data.detail || 'Invalid email or password. Please verify credentials.';
+                        showAlert(errMsg, 'error');
+                        setLoading(false);
+                    }
+                } catch (err) {
+                    console.error('Login error:', err);
+                    showAlert('Unable to reach security server. Please ensure backend is running.', 'error');
+                    setLoading(false);
+                }
+            }
+
+            // Form Submit Listener
+            if (form) {
+                form.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    const email = emailInput ? emailInput.value.trim() : '';
+                    const password = passwordInput ? passwordInput.value.trim() : '';
+
+                    if (!email) {
+                        showAlert('Please enter your security email address.', 'error');
+                        if (emailInput) emailInput.focus();
+                        return;
+                    }
+                    if (!password) {
+                        showAlert('Please enter your password.', 'error');
+                        if (passwordInput) passwordInput.focus();
+                        return;
+                    }
+
+                    performLogin(email, password);
+                });
+            }
+
+            // Quick Demo Login Button
+            if (quickDemoBtn) {
+                quickDemoBtn.addEventListener('click', () => {
+                    if (emailInput) emailInput.value = 'admin@phishguard.ai';
+                    if (passwordInput) passwordInput.value = 'PhishGuard@123';
+                    performLogin('admin@phishguard.ai', 'PhishGuard@123');
+                });
+            }
+
+            // Forgot Password / Demo Creds helper
+            if (forgotPassBtn) {
+                forgotPassBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    if (emailInput) emailInput.value = 'admin@phishguard.ai';
+                    if (passwordInput) passwordInput.value = 'PhishGuard@123';
+                    showAlert('Demo credentials filled: admin@phishguard.ai / PhishGuard@123', 'success');
+                });
+            }
+        })();
+    </script>
 </body>
-</html>
+</html>

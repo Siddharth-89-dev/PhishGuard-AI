@@ -18,6 +18,7 @@ import shutil
 import numpy as np
 import pandas as pd
 from xgboost import XGBClassifier
+from joblib import Parallel, delayed
 
 from utils.feature_extractor import extract_url_features
 from utils.whitelist import is_whitelisted
@@ -70,7 +71,10 @@ def run() -> bool:
     print(f"Training set: {len(main_df)} existing + {len(collected)} newly collected "
           f"-> {len(merged)} unique rows after merge")
 
-    X = np.array([extract_url_features(u) for u in merged["url"]], dtype=np.float32)
+    feature_list = Parallel(n_jobs=-1, batch_size=500)(
+        delayed(extract_url_features)(u) for u in merged["url"]
+    )
+    X = np.array(feature_list, dtype=np.float32)
     y = merged["label"].to_numpy()
 
     model = XGBClassifier(
