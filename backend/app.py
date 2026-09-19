@@ -1,4 +1,5 @@
 import os
+import re
 import hmac
 import hashlib
 import base64
@@ -176,12 +177,44 @@ def _maybe_trigger_retrain():
     threading.Thread(target=_run, daemon=True).start()
 
 
+def is_valid_url(url: str) -> bool:
+    if not url or not isinstance(url, str):
+        return False
+    clean = url.strip()
+    if not clean or any(c.isspace() for c in clean):
+        return False
+    to_parse = clean if "://" in clean else f"https://{clean}"
+    try:
+        parsed = urlparse(to_parse)
+        host = (parsed.hostname or "").lower()
+        if not host:
+            return False
+        if host == "localhost":
+            return True
+        ipv4_match = re.match(r"^(\d{1,3}\.){3}\d{1,3}$", host)
+        if ipv4_match:
+            parts = [int(p) for p in host.split(".")]
+            return all(0 <= p <= 255 for p in parts)
+        if host.startswith("[") and host.endswith("]"):
+            return True
+        domain_pattern = r"^(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z]{2,}$"
+        return bool(re.match(domain_pattern, host))
+    except Exception:
+        return False
+
+
 @app.post("/predict")
 def predict_url(data: URLRequest):
     url = (data.url or "").strip()
 
     if not url:
         raise HTTPException(status_code=400, detail="URL cannot be empty")
+
+    if not is_valid_url(url):
+        raise HTTPException(
+            status_code=400,
+            detail="Invalid URL format: Please enter a valid website link or domain (e.g., https://example.com or domain.com)",
+        )
 
     # Layer 1: Whitelist (Static + Adaptive)
     if is_whitelisted(url):
@@ -310,6 +343,8 @@ def submit_feedback(data: FeedbackRequest):
     url = (data.url or "").strip()
     if not url:
         raise HTTPException(status_code=400, detail="URL cannot be empty")
+    if not is_valid_url(url):
+        raise HTTPException(status_code=400, detail="Invalid URL format: Please provide a valid website link or domain")
 
     # Update adaptive whitelist (promotes domain after multiple uncontested confirmations)
     try:

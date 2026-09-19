@@ -209,6 +209,42 @@ const extractDomain = (url) => {
     }
 };
 
+const isValidUrlOrDomain = (input) => {
+    if (!input || typeof input !== 'string') return false;
+    const str = input.trim();
+    if (!str || /\s/.test(str)) return false; // Links cannot contain spaces
+
+    let toTest = str;
+    if (!/^https?:\/\//i.test(toTest)) {
+        toTest = `https://${toTest}`;
+    }
+
+    try {
+        const parsed = new URL(toTest);
+        const host = (parsed.hostname || '').toLowerCase();
+        if (!host) return false;
+
+        // Localhost support
+        if (host === 'localhost') return true;
+
+        // IPv4 address check (all 4 octets 0-255)
+        const ipv4Regex = /^(\d{1,3}\.){3}\d{1,3}$/;
+        if (ipv4Regex.test(host)) {
+            const parts = host.split('.').map(Number);
+            return parts.every(p => p >= 0 && p <= 255);
+        }
+
+        // IPv6 address support ([::1])
+        if (host.startsWith('[') && host.endsWith(']')) return true;
+
+        // Must have at least one dot separating domain and valid TLD (at least 2 letters)
+        const domainRegex = /^(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z]{2,}$/i;
+        return domainRegex.test(host);
+    } catch (_) {
+        return false;
+    }
+};
+
 // ============================================
 // 4. SPA VIEW ROUTER CONTROLLER
 // ============================================
@@ -312,14 +348,35 @@ let currentScannedUrl = '';
 
 const initScanner = () => {
     const input = $('#scanner-input');
+    const inputWrapper = $('.scanner-input-wrapper');
+    const errorBox = $('#scanner-error-box');
+    const errorText = $('#scanner-error-text');
     const analyzeBtn = $('#analyze-btn');
     const charCounter = $('#char-count');
     const resultsCard = $('#results-card');
 
     if (!input || !analyzeBtn) return;
 
-    // Character counter
+    const showError = (msg) => {
+        if (errorText) errorText.textContent = msg;
+        if (errorBox) errorBox.style.display = 'block';
+        if (inputWrapper) {
+            inputWrapper.classList.remove('input-error');
+            // Trigger reflow to restart shake animation
+            void inputWrapper.offsetWidth;
+            inputWrapper.classList.add('input-error');
+        }
+        if (resultsCard) resultsCard.classList.remove('visible');
+    };
+
+    const clearError = () => {
+        if (errorBox) errorBox.style.display = 'none';
+        if (inputWrapper) inputWrapper.classList.remove('input-error');
+    };
+
+    // Character counter & auto-clear error on user input
     input.addEventListener('input', () => {
+        clearError();
         const len = input.value.length;
         if (charCounter) {
             charCounter.textContent = `${len}/500 characters`;
@@ -339,11 +396,18 @@ const initScanner = () => {
         const rawUrl = input.value.trim();
         if (!rawUrl) {
             input.focus();
-            input.style.boxShadow = '0 0 0 3px rgba(239, 68, 68, 0.45)';
-            setTimeout(() => { input.style.boxShadow = ''; }, 1500);
+            showError('Please enter a website link or URL to analyze.');
             return;
         }
 
+        // Strict URL Validation: prevent arbitrary strings or non-links from getting analyzed
+        if (!isValidUrlOrDomain(rawUrl)) {
+            input.focus();
+            showError('Invalid URL: Please enter a valid website link or domain (e.g. paypal-security.xyz or https://example.com).');
+            return;
+        }
+
+        clearError();
         currentScannedUrl = rawUrl;
         analyzeBtn.classList.add('loading');
         analyzeBtn.disabled = true;
@@ -407,7 +471,7 @@ const initScanner = () => {
             updateSecurityStatus();
 
         } catch (err) {
-            alert(`Analysis failed: ${err.message || 'Could not connect to PhishGuard API service'}`);
+            showError(`Analysis failed: ${err.message || 'Could not connect to PhishGuard API service'}`);
         } finally {
             analyzeBtn.classList.remove('loading');
             analyzeBtn.disabled = false;
