@@ -367,6 +367,7 @@ def submit_feedback(data: FeedbackRequest):
 # HEALTH CHECK (useful for Render/uptime monitors)
 # =========================
 @app.get("/health")
+@app.head("/health")
 def health():
     return {"status": "ok"}
 
@@ -402,6 +403,7 @@ def get_logo():
 # PAGE ROUTES (clean, consistent URLs)
 # =========================
 @app.get("/")
+@app.head("/")
 def home():
     return FileResponse(os.path.join(FRONTEND_DIR, "index.html"))
 

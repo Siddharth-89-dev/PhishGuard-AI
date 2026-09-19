@@ -1,6 +1,4 @@
-// PhishGuard AI - Modern Liquid Glass Extension Popup Controller
-
-const API_BASE = "http://127.0.0.1:8000";
+const API_BASE = "https://phishguard-ai-6qdq.onrender.com";
 
 // DOM Elements
 const connectionPill = document.getElementById("pg-connection-pill");
@@ -60,7 +58,7 @@ function formatBytes(bytes) {
 // Check Backend Connection Health
 async function checkBackendHealth() {
   try {
-    const res = await fetch(`${API_BASE}/`, { method: "HEAD", signal: AbortSignal.timeout(1500) });
+    const res = await fetch(`${API_BASE}/health`, { method: "GET", signal: AbortSignal.timeout(4000) });
     if (res.ok) {
       connectionPill.className = "connection-pill";
       connText.textContent = "Active";

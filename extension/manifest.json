@@ -14,7 +14,8 @@
 
   "host_permissions": [
     "<all_urls>",
-    "http://127.0.0.1:8000/*"
+    "http://127.0.0.1:8000/*",
+    "https://phishguard-ai-6qdq.onrender.com/*"
   ],
 
   "background": {

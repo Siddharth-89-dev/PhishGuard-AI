@@ -10,12 +10,12 @@
     "moz-extension://",
     "https://chrome.google.com/webstore",
   ];
-  const BACKEND_HOST = "127.0.0.1:8000"; // don't scan backend UI
+  const BACKEND_HOSTS = ["127.0.0.1:8000", "localhost:8000", "phishguard-ai-6qdq.onrender.com"]; // don't scan backend UI
 
   const currentUrl = window.location.href;
 
   if (SKIP_PREFIXES.some((p) => currentUrl.startsWith(p))) return;
-  if (window.location.host === BACKEND_HOST) return;
+  if (BACKEND_HOSTS.includes(window.location.host)) return;
 
   let dismissed = false;
 
