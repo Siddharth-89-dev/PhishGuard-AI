@@ -1005,6 +1005,8 @@ const initUserProfile = () => {
     const authBtn = $('#sidebar-auth-btn');
     const authLabel = $('#sidebar-auth-label');
     const authIcon = $('#sidebar-auth-icon');
+    const mobileAuthBtn = $('#mobile-auth-btn');
+    const mobileAvatar = $('#mobile-avatar');
 
     if (isAuth && (user.email || user.name)) {
         // User IS logged in -> Show Account / Dashboard state
@@ -1036,6 +1038,12 @@ const initUserProfile = () => {
         pill.onclick = openAccount;
         if (authBtn) authBtn.onclick = openAccount;
         pill.title = `Logged in as ${user.email || displayName} (Click for Account Dashboard)`;
+
+        if (mobileAvatar) mobileAvatar.textContent = (displayName[0] || 'S').toUpperCase();
+        if (mobileAuthBtn) {
+            mobileAuthBtn.onclick = openAccount;
+            mobileAuthBtn.title = `Logged in as ${user.email || displayName} (Click for Dashboard)`;
+        }
     } else {
         // User is NOT logged in -> Show Login button
         if (nameEl) nameEl.textContent = 'Siddharth';
@@ -1066,6 +1074,20 @@ const initUserProfile = () => {
         pill.onclick = openLogin;
         if (authBtn) authBtn.onclick = openLogin;
         pill.title = 'Click to sign in to security console';
+
+        if (mobileAvatar) mobileAvatar.textContent = 'S';
+        if (mobileAuthBtn) {
+            mobileAuthBtn.onclick = openLogin;
+            mobileAuthBtn.title = 'Click to Sign In';
+        }
+    }
+
+    const mobileBrand = $('.mobile-brand-logo');
+    if (mobileBrand) {
+        mobileBrand.onclick = (e) => {
+            e.preventDefault();
+            Router.navigateTo('home');
+        };
     }
 };
 

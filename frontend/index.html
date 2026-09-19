@@ -8,9 +8,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css?v=4.3">
-    <link rel="stylesheet" href="/assets/style.css?v=4.3">
-    <script src="script.js?v=4.3" defer></script>
+    <link rel="stylesheet" href="style.css?v=5.0">
+    <link rel="stylesheet" href="/assets/style.css?v=5.0">
+    <script src="script.js?v=5.0" defer></script>
 </head>
 <body>
     <!-- Ambient Luminous Background Orbs -->
@@ -127,6 +127,17 @@
         <main class="main-wrapper">
             <!-- Top App Header -->
             <header class="app-header">
+                <!-- Mobile Brand Logo (Visible on mobile screens) -->
+                <a href="#home" class="mobile-brand-logo" data-view="home">
+                    <div class="logo-shield">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2L4 5V11.5C4 16.5 7.5 21 12 22.5C16.5 21 20 16.5 20 11.5V5L12 2Z" fill="url(#brand-shield-grad)"/>
+                            <path d="M9 12L11 14L15 10" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <span class="mobile-brand-text">PhishGuard</span>
+                </a>
+
                 <div class="search-box">
                     <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <circle cx="11" cy="11" r="8"/>
@@ -165,11 +176,16 @@
                     </button>
 
                     <!-- Upgrade to Pro -->
-                    <button class="upgrade-btn-header" id="upgrade-header-btn">
+                    <button class="upgrade-btn-header" id="upgrade-header-btn" title="Upgrade to Pro">
                         <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
                             <path d="M5 16L3 5l5.5 5L12 4l3.5 6L21 5l-2 11H5zm14 3c0 .6-.4 1-1 1H6c-.6 0-1-.4-1-1v-1h14v1z"/>
                         </svg>
-                        <span>Upgrade to Pro</span>
+                        <span class="upgrade-btn-text">Upgrade to Pro</span>
+                    </button>
+
+                    <!-- Mobile Profile / Auth Button (Visible on mobile screens) -->
+                    <button class="mobile-auth-btn" id="mobile-auth-btn" type="button" title="Account / Sign In">
+                        <span id="mobile-avatar">S</span>
                     </button>
                 </div>
             </header>
@@ -391,20 +407,22 @@
 
                         <!-- Single URL Input Bar (No Email, Message, File buttons) -->
                         <div class="scanner-input-wrapper">
-                            <div class="input-icon-slot">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
-                                    <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
-                                </svg>
+                            <div class="scanner-input-inner">
+                                <div class="input-icon-slot">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
+                                        <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
+                                    </svg>
+                                </div>
+                                <input 
+                                    type="text" 
+                                    id="scanner-input" 
+                                    class="scanner-input-field" 
+                                    placeholder="Enter a URL to analyze (e.g. https://example.com)"
+                                    autocomplete="off"
+                                    spellcheck="false"
+                                >
                             </div>
-                            <input 
-                                type="text" 
-                                id="scanner-input" 
-                                class="scanner-input-field" 
-                                placeholder="Enter a URL to analyze (e.g. https://example.com)"
-                                autocomplete="off"
-                                spellcheck="false"
-                            >
                             <button id="analyze-btn" class="analyze-gradient-btn">
                                 <span class="btn-spinner"></span>
                                 <span class="btn-content">
