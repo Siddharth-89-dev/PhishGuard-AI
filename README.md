@@ -7,6 +7,7 @@ An AI-powered phishing website detection system that identifies malicious URLs u
 Phishing attacks remain one of the most common cybersecurity threats, tricking users into revealing sensitive information through fake websites. Traditional blacklist-based detection systems often fail to detect newly created phishing websites.
 
 PhishGuard AI addresses this problem by leveraging Machine Learning to analyze URL characteristics and classify websites as **Phishing** or **Legitimate** in real time.
+
 DEMO LINK:-https://phishguard-ai-6qdq.onrender.com
 ---
 
